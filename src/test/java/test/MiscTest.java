@@ -168,9 +168,5 @@ public class MiscTest extends TestBase {
         registerPage.clickRegister();
         accountPage.checkPasswordsNotMatch();
     }
-    @Test
-    void logingApiTest(){
-        given()
-                .body("j");
-    }
+
 }
