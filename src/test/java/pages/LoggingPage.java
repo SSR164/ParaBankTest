@@ -1,13 +1,13 @@
 package pages;
 
-import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
+import org.openqa.selenium.Cookie;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class LoggingPage {
     @Step("Открыть страницу")
@@ -55,6 +55,12 @@ public class LoggingPage {
     @Step("Нажать на кнопку LOG IN ")
     public LoggingPage clickRegister() {
         $("#loginPanel").$(byText("Register")).click();
+        return this;
+    }
+    @Step("Открываем техническую страницу  Логинимся на странице ")
+    public LoggingPage loginPageRegisteredPerson(String sessionId){
+        open("/parabank/images/bullet-hover.gif");
+        getWebDriver().manage().addCookie(new Cookie("JSESSIONID",sessionId));
         return this;
     }
 }

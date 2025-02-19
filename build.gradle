@@ -1,12 +1,28 @@
 plugins {
-    id 'java'
+    id 'java' // Подключает поддержку Java
+    id 'io.qameta.allure' version '2.11.2' // Подключает Allure для отчетов о тестах
 }
 
-group = 'com.vampir6307'
-version = '1.0-SNAPSHOT'
+group = 'com.vampir6307' // Уникальный идентификатор проекта
+version = '1.0-SNAPSHOT' // Версия проекта
 
 repositories {
-    mavenCentral()
+    mavenCentral() // Подключение Maven Central как основного репозитория
+}
+def allureVersion = "2.21.0" // Версия Allure для отчетности
+
+allure {
+    report {
+        version.set(allureVersion) // Устанавливаем версию Allure-отчетов
+    }
+    adapter {
+        aspectjWeaver.set(true) // Включаем AspectJ Weaving (отслеживание тестов)
+        frameworks {
+            junit5 {
+                adapterVersion.set(allureVersion) // Подключение адаптера для JUnit 5
+            }
+        }
+    }
 }
 
 dependencies {
@@ -19,8 +35,16 @@ dependencies {
     testImplementation 'io.qameta.allure:allure-junit5:2.21.0'//интеграцию Allure с JUnit 5
     implementation 'net.datafaker:datafaker:2.0.2' // для создания фейковых данных
     testImplementation 'io.rest-assured:rest-assured:5.3.0'// подключаем rest-assured для тестирования api
+    testImplementation 'org.hamcrest:hamcrest:2.2'//предоставляет удобные матчеры (matchers) для проверки значений в тестах
+    testImplementation  'org.slf4j:slf4j-simple:2.0.7'//это абстрактный слой для логирования в Java.
+    testImplementation "org.junit.jupiter:junit-jupiter:5.10.0"// это фреймворк для написания и запуска тестов в Java.
+    testImplementation  "io.rest-assured:json-schema-validator:5.3.1"//это библиотека для тестирования REST API.
+    testImplementation "io.qameta.allure:allure-selenide:$allureVersion"//это инструменты для тестирования и отчетности.
+    testImplementation 'io.qameta.allure:allure-rest-assured:2.21.0'
 }
 
-tasks.test {
-    useJUnitPlatform() // Включение платформы JUnit 5 для запуска тестов
+task  bookStore_test(type: Test) {
+    useJUnitPlatform { // Указываем, что тесты запускаются с JUnit 5
+        includeTags("test") // Запускаем только тесты, помеченные тегом "Test"
+    }
 }

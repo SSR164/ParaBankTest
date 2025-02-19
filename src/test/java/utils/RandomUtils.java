@@ -16,5 +16,5 @@ public class RandomUtils {
     public String getPhone (){return  faker.phoneNumber().phoneNumber();}
     public String getSSN (){return  faker.idNumber().ssnValid();}
     public String getUsernName (){return faker.harryPotter().character();}
-    public String getPassword (){return faker.internet().password(12, 16, true, true, true); }
+    public String getPassword (){return faker.internet().password(12, 16, true, false, true); }
 }
