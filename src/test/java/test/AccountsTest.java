@@ -2,20 +2,13 @@ package test;
 
 import api.AccountApi;
 import api.LoggingApi;
-import io.qameta.allure.Allure;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.AccountPage;
-import pages.CustomerLookupPage;
 import pages.LoggingPage;
 import utils.RandomUtils;
-
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
 import static io.qameta.allure.Allure.step;
 
 import java.util.List;
