@@ -30,7 +30,7 @@ public class LoggingTest extends TestBase {
     String staticCity = "Hogsmeade";
     String staticState = "Scotland";
     String staticZipCode = "HM309 7HP";
-    String staticPhone = " 44 7872345612";
+    String staticPhone = "44 7872345612";
     String staticSSN = "DA42S12345";
 
     @Test

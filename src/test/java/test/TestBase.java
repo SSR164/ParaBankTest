@@ -2,10 +2,17 @@ package test;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import helpers.Attach;
+import io.qameta.allure.selenide.AllureSelenide;
 import io.restassured.RestAssured;
 import io.restassured.parsing.Parser;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.openqa.selenium.remote.DesiredCapabilities;
+
+import java.util.Map;
 
 public class TestBase {
     @BeforeAll //Метод с аннотацией @BeforeAll вызывается до выполнения первого теста в классе.
@@ -21,11 +28,43 @@ public class TestBase {
         System.setProperty("junit.jupiter.execution.parallel.enabled", "false");
         RestAssured.baseURI = "https://parabank.parasoft.com";
         RestAssured.defaultParser = Parser.JSON;
+// Создаём объект DesiredCapabilities для настройки браузерных возможностей
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        // Устанавливаем параметры для Selenoid (удалённого Selenium-сервера)
+// Включаем поддержку VNC (для удалённого просмотра сессии) и запись видео тестов
+        // Включаем VNC для просмотра браузера в реальном времени
+        // Включаем запись видео сеанса тестирования
+        capabilities.setCapability("selenoid:options", Map.<String, Object>of("enableVNC", true, "enableVideo", true
+
+        ));
+        // Применяем настройки браузерных возможностей в Selenide
+        Configuration.browserCapabilities = capabilities;
+
+    }
+
+    @BeforeEach
+    void beforeEach() {
+        // Добавляем слушатель логирования Selenide для Allure (система отчётов)
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+    }
+
+    @AfterEach
+    void addAttachments() {
+        // Добавляем скриншот после завершения теста
+        Attach.screenshotAs("Last screenshot");
+        // Добавляем исходный код страницы (HTML) в отчёт
+        Attach.pageSource();
+        // Добавляем логи консоли браузера в отчёт
+        Attach.browserConsoleLogs();
+        // Добавляем видео-запись теста в отчёт (если запись видео была включена)
+        Attach.addVideo();
     }
 
     @AfterEach
     void tearDown() {
+        // Проверяем, был ли запущен WebDriver
         if (WebDriverRunner.hasWebDriverStarted()) {
+            // Если да, закрываем браузер и завершаем сессию
             WebDriverRunner.getWebDriver().quit();
         }
     }
