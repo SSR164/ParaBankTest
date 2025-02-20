@@ -69,5 +69,11 @@ public class RegisterPage {
         $("#customerForm").$(".button").click();
         return this;
     }
+    @Step("Нажать на кнопку Forgot login info?")
+    public pages.RegisterPage clickForgotLoginInfo (){
+        $("#loginPanel").$(byText("Forgot login info?")).click();
+        return this;
+    }
+
     }
 
