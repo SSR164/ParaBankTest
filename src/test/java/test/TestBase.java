@@ -34,7 +34,9 @@ public class TestBase {
 // Включаем поддержку VNC (для удалённого просмотра сессии) и запись видео тестов
         // Включаем VNC для просмотра браузера в реальном времени
         // Включаем запись видео сеанса тестирования
-        capabilities.setCapability("selenoid:options", Map.<String, Object>of("enableVNC", true, "enableVideo", true
+        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
+                "enableVNC", true,
+                "enableVideo", true
 
         ));
         // Применяем настройки браузерных возможностей в Selenide
@@ -58,15 +60,13 @@ public class TestBase {
         Attach.browserConsoleLogs();
         // Добавляем видео-запись теста в отчёт (если запись видео была включена)
         Attach.addVideo();
-    }
 
-    @AfterEach
-    void tearDown() {
         // Проверяем, был ли запущен WebDriver
         if (WebDriverRunner.hasWebDriverStarted()) {
             // Если да, закрываем браузер и завершаем сессию
             WebDriverRunner.getWebDriver().quit();
-        }
+    }
+
     }
 
 }
