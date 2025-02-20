@@ -33,7 +33,7 @@ public class TechnicalTest extends TestBase {
 
     @Test
     @Tag("UI")
-    //@Disabled("Тест для генерации данных.Parabank ежедневно чистит БД.")
+    // @Disabled("Тест для генерации данных.Parabank ежедневно чистит БД.")
     @DisplayName("Регистрация аккаунта для генерации тестовых данных")
     void sataticRegisterAccountMaxUITest() {
         loggingPage.openPage();

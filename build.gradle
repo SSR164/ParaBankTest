@@ -40,10 +40,25 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter:5.10.0"// это фреймворк для написания и запуска тестов в Java.
     testImplementation  "io.rest-assured:json-schema-validator:5.3.1"//это библиотека для тестирования REST API.
     testImplementation "io.qameta.allure:allure-selenide:$allureVersion"//это инструменты для тестирования и отчетности.
-    testImplementation 'io.qameta.allure:allure-rest-assured:2.21.0'
+    implementation 'io.qameta.allure:allure-rest-assured:2.29.1'
+
 }
 
-task  bookStore_test(type: Test) {
+tasks.withType(Test) {
+    systemProperties(System.getProperties())
+    // Указываем, что используем JUnit Platform для запуска тестов (JUnit 5)
+    useJUnitPlatform()
+// Настройка логирования тестов
+    testLogging {
+        lifecycle {
+            // Определяем, какие события будут выводиться в лог на уровне "lifecycle"
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            // Задаём формат вывода исключений (короткий, без лишней информации)
+            exceptionFormat "short"
+        }
+    }
+}
+task  bank_test(type: Test) {
     useJUnitPlatform { // Указываем, что тесты запускаются с JUnit 5
         includeTags("test") // Запускаем только тесты, помеченные тегом "Test"
     }
