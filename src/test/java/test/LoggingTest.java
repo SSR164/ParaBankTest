@@ -90,7 +90,7 @@ public class LoggingTest extends TestBase {
     }
     @Test
     @Tag("API")
-    @DisplayName("Авторизация на UI через API")
+    @DisplayName("Авторизация через API")
     void sataticAccountCustomerIDTest() {
         Response response = loggingApi.getlogging(staticUsername,staticPassword);
         String firstName = response.xmlPath().getString("customer.firstName");
