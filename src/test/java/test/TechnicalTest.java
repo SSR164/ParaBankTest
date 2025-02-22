@@ -10,16 +10,13 @@ import pages.AccountPage;
 import pages.LoggingPage;
 import pages.RegisterPage;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
+
 
 
 public class TechnicalTest extends TestBase {
     LoggingPage loggingPage = new LoggingPage();
     AccountPage accountPage = new AccountPage();
     RegisterPage registerPage = new RegisterPage();
-    LoggingApi loggingApi =new LoggingApi();
     String staticFirstName = "Albus";
     String staticLastName = "Dumbledore";
     String staticAddress = "Room of Requirement 742";

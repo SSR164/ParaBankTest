@@ -32,7 +32,5 @@ public class ApiSpecs {
     }
 
     public static final ResponseSpecification userResponseSpecification200 = createResponseSpecification(200,false);
-    public static final ResponseSpecification userResponseSpecification201True = createResponseSpecification(201,true);
-    public static final ResponseSpecification userResponseSpecification204 = createResponseSpecification(204,false);
     public static final ResponseSpecification userResponseSpecification302 = createResponseSpecification(302,false);
 }

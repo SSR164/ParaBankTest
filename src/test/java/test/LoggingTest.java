@@ -10,7 +10,7 @@ import pages.LoggingPage;
 import pages.RegisterPage;
 import utils.RandomUtils;
 
-import static io.restassured.RestAssured.given;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -20,7 +20,6 @@ public class LoggingTest extends TestBase {
     AccountPage accountPage = new AccountPage();
     RandomUtils randomUtils = new RandomUtils();
     LoggingApi loggingApi = new LoggingApi();
-    RegisterPage registerPage = new RegisterPage();
     String staticFullName = "Albus Dumbledore";
     String staticUsername = "albusgryffindor";
     String staticPassword = "ExpectoPatronum789";
