@@ -1,49 +1,39 @@
 package api;
 
 import io.qameta.allure.Step;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import static helpers.CustomApiListener.withCustomTemplates;
 import java.util.List;
+import static specs.ApiSpecs.RequestSpec;
 
 import static io.restassured.RestAssured.given;
+import static specs.ApiSpecs.userResponseSpecification200;
 
 public class AccountApi {
     @Step("Получить список счетов пользователя")
     public Response getCustomerAccounts(String customerId) {
-        Response response = given()
-                .contentType(ContentType.JSON)
-                .log().all()
+        Response response = given(RequestSpec)
                 .pathParam("customerId", customerId)  // Передаём customerId в путь
                 .when()
                 .get("/parabank/services/bank/customers/{customerId}/accounts") // <-- передаем параметры в URL
                 .then()
-                .statusCode(200)
-                .log().all()
+                .spec(userResponseSpecification200)
                 .extract().response();
         return response;
     }
     @Step("Проверить какому пользователю принадлежит счет")
     public Response getAccounts(String accountsId) {
-        Response response = given()
-                .contentType(ContentType.JSON)
-                .filter(withCustomTemplates())
-                .log().all()
+        Response response = given(RequestSpec)
                 .pathParam("accountsId", accountsId)
                 .when()
                 .get("/parabank/services/bank/accounts/{accountsId}") // <-- передаем параметры в URL
                 .then()
-                .statusCode(200)
-                .log().all()
+                .spec(userResponseSpecification200)
                 .extract().response();
         return response;
     }
     @Step("Подать заявку на кредит")
     public Response getRegistLoan(String customerId,String amount,String downPayment,String fromAccountId) {
-        Response response = given()
-                .contentType(ContentType.JSON)
-                .filter(withCustomTemplates())
-                .log().all()
+        Response response = given(RequestSpec)
                 .queryParam("customerId",customerId)
                 .queryParam("amount",amount)
                 .queryParam("downPayment",downPayment)
@@ -51,8 +41,7 @@ public class AccountApi {
                 .when()
                 .post("/parabank/services/bank/requestLoan") // <-- передаем параметры в URL
                 .then()
-                .statusCode(200)
-                .log().all()
+                .spec(userResponseSpecification200)
                 .extract().response();
         return response;
     }
@@ -73,10 +62,7 @@ public class AccountApi {
     }
     @Step("Подать заявку на кредит")
     public Response updateCustomer(String customerId,String firstName,String lastName,String street,String city,String state,String zipCode,String phoneNumber,String ssn,String username,String password) {
-        Response response = given()
-                .contentType(ContentType.JSON)
-                .filter(withCustomTemplates())
-                .log().all()
+        Response response = given(RequestSpec)
                 .pathParam("customerId",customerId)
                 .queryParam("firstName",firstName)
                 .queryParam("lastName",lastName)
@@ -91,8 +77,7 @@ public class AccountApi {
                 .when()
                 .post("/parabank/services/bank/customers/update/{customerId}") // <-- передаем параметры в URL
                 .then()
-                .statusCode(200)
-                .log().all()
+                .spec(userResponseSpecification200)
                 .extract().response();
         return response;
     }
@@ -103,18 +88,14 @@ public class AccountApi {
     }
     @Step("Подать заявку на кредит")
     public Response creatAccounts(String customerId,int newAccountType,String fromAccountId  ) {
-        Response response = given()
-                .contentType(ContentType.JSON)
-                .filter(withCustomTemplates())
-                .log().all()
+        Response response = given(RequestSpec)
                 .queryParam("customerId",customerId)
                 .queryParam("newAccountType",newAccountType)
                 .queryParam("fromAccountId",fromAccountId )
                 .when()
                 .post("/parabank/services/bank/createAccount") // <-- передаем параметры в URL
                 .then()
-                .statusCode(200)
-                .log().all()
+                .spec(userResponseSpecification200)
                 .extract().response();
         return response;
     }
