@@ -4,7 +4,7 @@
     "project": "ParaBankTest",
     "environment": "Test",
     "comment": "any comment here, @ZalinaKodz",
-    "reportLink": "https://jenkins.autotests.cloud/job/Kod3ik_qa_guru_x5/",
+    "reportLink": "https://jenkins.autotests.cloud/job/C31-SerzhSH-java_17_bank/",
     "language": "en",
     "allureFolder": "allure-report/",
     "enableChart": true
