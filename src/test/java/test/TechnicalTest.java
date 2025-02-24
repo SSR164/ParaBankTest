@@ -1,8 +1,6 @@
 package test;
 
-import api.LoggingApi;
-import io.restassured.response.Response;
-import org.junit.jupiter.api.Disabled;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -12,7 +10,7 @@ import pages.RegisterPage;
 
 
 
-
+@Tag("tech")
 public class TechnicalTest extends TestBase {
     LoggingPage loggingPage = new LoggingPage();
     AccountPage accountPage = new AccountPage();

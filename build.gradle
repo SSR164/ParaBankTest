@@ -9,6 +9,9 @@ version = '1.0-SNAPSHOT' // Версия проекта
 repositories {
     mavenCentral() // Подключение Maven Central как основного репозитория
 }
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
 def allureVersion = "2.21.0" // Версия Allure для отчетности
 
 allure {
@@ -41,6 +44,7 @@ dependencies {
     testImplementation  "io.rest-assured:json-schema-validator:5.3.1"//это библиотека для тестирования REST API.
     testImplementation "io.qameta.allure:allure-selenide:$allureVersion"//это инструменты для тестирования и отчетности.
     implementation 'io.qameta.allure:allure-rest-assured:2.29.1'
+    implementation 'org.aeonbits.owner:owner:1.0.12'
 
 }
 
@@ -58,8 +62,15 @@ tasks.withType(Test) {
         }
     }
 }
-task  bank_test(type: Test) {
-    useJUnitPlatform { // Указываем, что тесты запускаются с JUnit 5
-        includeTags("test") // Запускаем только тесты, помеченные тегом "Test"
+
+    task bank_test(type: Test) {
+        useJUnitPlatform {
+            includeTags("test") // Запускаем тесты с тегом "test"
+        }
     }
-}
+
+    task bank_test_technical(type: Test) {
+        useJUnitPlatform {
+            includeTags("tech") // Запускаем тесты с тегом "tech"
+        }
+    }
