@@ -2,7 +2,9 @@ package test;
 
 import api.AccountApi;
 import api.LoggingApi;
+import config.WebDriverConfig;
 import io.restassured.response.Response;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -31,7 +33,7 @@ public class AccountsTest extends TestBase {
     String staticCity = "Hogsmeade";
     String staticState = "Scotland";
     String staticZipCode = "HM309 7HP";
-    String staticPhone = "+44 7872345612";
+    String staticPhone = "44 7872345612";
     String staticSSN = "DA42S12345";
     RandomUtils randomUtils = new RandomUtils();
     String randomFirstName = randomUtils.getFirstName();

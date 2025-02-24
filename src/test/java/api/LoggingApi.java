@@ -8,11 +8,12 @@ import static helpers.CustomApiListener.withCustomTemplates;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.notNullValue;
+import static specs.ApiSpecs.*;
 
 public class LoggingApi {
     @Step("Авторизация через post для получения JSESSIONID")
     public Response getJSESSIONID(String username,String password) {
-        Response response = given()
+        Response response = given(RequestSpec)
                 .filter(withCustomTemplates())
                 .contentType("application/x-www-form-urlencoded")  // Указываем формат данных
                 .formParam("username", username)          // Передача логина
@@ -24,13 +25,13 @@ public class LoggingApi {
                 .statusCode(302)                                  // Проверяем, что редирект успешен
                 .header("Location", containsString("overview.htm")) // Проверяем, что переходим на главную
                 .cookie("JSESSIONID", notNullValue())// Убедимся, что сессия установлена
-                .log().all()
+                .spec(userResponseSpecification302)
                 .extract().response();
         return response;
     }
     @Step("Авторизация через get")
     public Response getlogging(String username,String password) {
-        Response response = given()
+        Response response = given(RequestSpec)
                 .contentType(ContentType.JSON)
                 .filter(withCustomTemplates())
                 .log().all()
@@ -39,8 +40,7 @@ public class LoggingApi {
                 .when()
                 .get("/parabank/services/bank/login/{username}/{password}") // <-- передаем параметры в URL
                 .then()
-                .statusCode(200)
-                .log().all()
+                .spec(userResponseSpecification200)
                 .extract().response();
         return response;
     }

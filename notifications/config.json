@@ -1,17 +1,17 @@
 {
   "base": {
-    "logo": "",
-    "project": "ParaBankTest",
-    "environment": "Test",
-    "comment": "any comment here, @ZalinaKodz",
-    "reportLink": "https://jenkins.autotests.cloud/job/Kod3ik_qa_guru_x5/",
+    "project": "some project",
+    "environment": "some env",
+    "comment": "some comment",
+    "reportLink": "https://jenkins.autotests.cloud/job/C31-SerzhSH-java_17_bank/",
     "language": "en",
-    "allureFolder": "allure-report/",
+    "messenger": "telegram",
+    "allureFolder": "allure-report",
     "enableChart": true
   },
   "telegram": {
-    "token": "5811384304:AAHUGMDvWs5OBval0UYtK0y5v_63BjhmYFo",
-    "chat": "-3106885",
+    "token": "7635593078:AAHSgyoE9qY4nmvngmudwsvxUfKNNROCIuc",
+    "chat": "-4583898521",
     "replyTo": ""
   }
 }

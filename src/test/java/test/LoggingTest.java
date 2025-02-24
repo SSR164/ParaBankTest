@@ -10,7 +10,7 @@ import pages.LoggingPage;
 import pages.RegisterPage;
 import utils.RandomUtils;
 
-import static io.restassured.RestAssured.given;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -20,7 +20,6 @@ public class LoggingTest extends TestBase {
     AccountPage accountPage = new AccountPage();
     RandomUtils randomUtils = new RandomUtils();
     LoggingApi loggingApi = new LoggingApi();
-    RegisterPage registerPage = new RegisterPage();
     String staticFullName = "Albus Dumbledore";
     String staticUsername = "albusgryffindor";
     String staticPassword = "ExpectoPatronum789";
@@ -30,7 +29,7 @@ public class LoggingTest extends TestBase {
     String staticCity = "Hogsmeade";
     String staticState = "Scotland";
     String staticZipCode = "HM309 7HP";
-    String staticPhone = "+44 7872345612";
+    String staticPhone = "44 7872345612";
     String staticSSN = "DA42S12345";
 
     @Test
@@ -90,7 +89,7 @@ public class LoggingTest extends TestBase {
     }
     @Test
     @Tag("API")
-    @DisplayName("Авторизация на UI через API")
+    @DisplayName("Авторизация через API")
     void sataticAccountCustomerIDTest() {
         Response response = loggingApi.getlogging(staticUsername,staticPassword);
         String firstName = response.xmlPath().getString("customer.firstName");
