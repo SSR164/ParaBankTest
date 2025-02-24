@@ -3,6 +3,8 @@ package config;
 import org.aeonbits.owner.Config;
 
 @Config.Sources({
+        "system:properties",
+        "system:env",
         "classpath:${env}.properties",// Использует файл, указанный через переменную окружения "env"
         "classpath:local.properties"   // Файл по умолчанию, если "env" не передан или файл не найден
 })
