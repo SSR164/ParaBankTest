@@ -97,20 +97,21 @@ public class TestBase {
     }
 
     @AfterEach
-    void addAttachments() {
-        // Проверяем, запущен ли WebDriver перед добавлением вложений
+    void aaddAttachments() {
+        System.out.println("Executing addAttachments()...");
+
         if (!Configuration.browser.equals("none") && WebDriverRunner.hasWebDriverStarted()) {
             Attach.screenshotAs("Last screenshot");
             Attach.pageSource();
             Attach.browserConsoleLogs();
             Attach.addVideo();
+        } else {
+            System.out.println("Skipping attachments. Either WebDriver is not started or browser is set to 'none'.");
         }
-    }
 
-    @AfterEach
-    void tearDown() {
-        // Закрываем WebDriver только если он был запущен
+        // Теперь можно закрыть браузер
         if (!Configuration.browser.equals("none") && WebDriverRunner.hasWebDriverStarted()) {
+            System.out.println("Closing WebDriver...");
             Selenide.closeWebDriver();
         }
    }
