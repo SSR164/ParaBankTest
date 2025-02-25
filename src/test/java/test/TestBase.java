@@ -14,6 +14,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import config.UserConfig;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,6 +46,11 @@ public class TestBase {
         boolean isUiTests = !"false".equals(System.getProperty("uiTests", "true"));
         RestAssured.baseURI = config.getBaseUrl();
         RestAssured.defaultParser = Parser.JSON;
+        RestAssured.authentication = RestAssured.basic(
+                UserConfig.getUserName(),
+                UserConfig.getPassword()
+
+        );
         if (isUiTests) {
         Configuration.baseUrl = config.getBaseUrl();// Устанавливает базовый URL для тестов. Это означает, что все относительные пути в тестах (например, "/path") будут строиться на основе этого URL.
         Configuration.headless = false;  // Включает обычный режим (с UI)

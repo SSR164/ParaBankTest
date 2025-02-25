@@ -2,6 +2,7 @@ package test;
 
 import api.AccountApi;
 import api.LoggingApi;
+import config.UserConfig;
 import config.WebDriverConfig;
 import io.restassured.response.Response;
 import org.aeonbits.owner.ConfigFactory;
@@ -21,12 +22,15 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 @Tag("test")
 public class AccountsTest extends TestBase {
+    UserConfig userConfig= new UserConfig();
     LoggingApi loggingApi = new LoggingApi();
     AccountApi accountApi = new AccountApi();
     LoggingPage loggingPage= new LoggingPage();
     AccountPage accountPage = new AccountPage();
-    String staticUsername = "albusgryffindor";
-    String staticPassword = "ExpectoPatronum789";
+    String staticUsername = UserConfig.getUserName();
+    String staticPassword = UserConfig.getPassword();
+    //String staticUsername = "albusgryffindor";
+   // String staticPassword = "ExpectoPatronum789";
     String staticFirstName = "Albus";
     String staticLastName = "Dumbledore";
     String staticAddress = "Room of Requirement 742";
