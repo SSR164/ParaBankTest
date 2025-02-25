@@ -29,8 +29,6 @@ public class AccountsTest extends TestBase {
     AccountPage accountPage = new AccountPage();
     String staticUsername = UserConfig.getUserName();
     String staticPassword = UserConfig.getPassword();
-    //String staticUsername = "albusgryffindor";
-   // String staticPassword = "ExpectoPatronum789";
     String staticFirstName = "Albus";
     String staticLastName = "Dumbledore";
     String staticAddress = "Room of Requirement 742";

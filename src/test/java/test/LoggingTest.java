@@ -1,6 +1,7 @@
 package test;
 
 import api.LoggingApi;
+import config.UserConfig;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -21,8 +22,8 @@ public class LoggingTest extends TestBase {
     RandomUtils randomUtils = new RandomUtils();
     LoggingApi loggingApi = new LoggingApi();
     String staticFullName = "Albus Dumbledore";
-    String staticUsername = "albusgryffindor";
-    String staticPassword = "ExpectoPatronum789";
+    String staticUsername = UserConfig.getUserName();
+    String staticPassword = UserConfig.getPassword();
     String staticFirstName = "Albus";
     String staticLastName = "Dumbledore";
     String staticAddress = "Room of Requirement 742";

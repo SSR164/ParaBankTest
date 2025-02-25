@@ -1,6 +1,7 @@
 package test;
 
 
+import config.UserConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -23,8 +24,8 @@ public class TechnicalTest extends TestBase {
     String staticZipCode = "HM309 7HP";
     String staticPhone = "44 7872345612";
     String staticSSN = "DA42S12345";
-    String staticUsername = "albusgryffindor";
-    String staticPassword = "ExpectoPatronum789";
+    String staticUsername = UserConfig.getUserName();
+    String staticPassword = UserConfig.getPassword();
 
     @Test
     @Tag("UI")
