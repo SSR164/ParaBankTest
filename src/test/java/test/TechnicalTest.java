@@ -11,7 +11,7 @@ import pages.RegisterPage;
 
 
 
-@Tag("tech")
+@Tag("TECH")
 public class TechnicalTest extends TestBase {
     LoggingPage loggingPage = new LoggingPage();
     AccountPage accountPage = new AccountPage();
@@ -28,7 +28,6 @@ public class TechnicalTest extends TestBase {
     String staticPassword = UserConfig.getPassword();
 
     @Test
-    @Tag("TECH")
     // @Disabled("Тест для генерации данных.Parabank ежедневно чистит БД.")
     @DisplayName("Регистрация аккаунта для генерации тестовых данных")
     void sataticRegisterAccountMaxUITest() {
