@@ -2,7 +2,10 @@ package config;
 
 import org.aeonbits.owner.Config;
 
+@Config.LoadPolicy(Config.LoadType.MERGE)
 @Config.Sources({
+        "system:properties",
+        "system:env",
         "classpath:${env}.properties",// Использует файл, указанный через переменную окружения "env"
         "classpath:local.properties"   // Файл по умолчанию, если "env" не передан или файл не найден
 })
@@ -17,7 +20,7 @@ public interface WebDriverConfig extends Config {
     String getBrowser();
 
     @Key("browserVersion")
-    @DefaultValue("latest")
+    @DefaultValue("126.0")
     String getBrowserVersion();
 
     @Key("isRemote")
@@ -36,43 +39,5 @@ public interface WebDriverConfig extends Config {
     @DefaultValue("1920x1080")
     String getbrowserSize();
 
-    @Key("staticUsername")
-    @DefaultValue("albusgryffindor")
-    String getStaticUsername();
 
-    @Key("staticPassword")
-    @DefaultValue("ExpectoPatronum789")
-    String getStaticPassword();
-
-    @Key("staticFirstName")
-    @DefaultValue("Albus")
-    String getStaticFirstName();
-
-    @Key("staticLastName")
-    @DefaultValue("Dumbledore")
-    String getStaticLastName();
-
-    @Key("staticAddress")
-    @DefaultValue("Room of Requirement 742")
-    String getStaticAddress();
-
-    @Key("staticCity")
-    @DefaultValue("Hogsmeade")
-    String getStaticCity();
-
-    @Key("staticState")
-    @DefaultValue("Scotland")
-    String getStaticState();
-
-    @Key("staticZipCode")
-    @DefaultValue("HM309 7HP")
-    String getStaticZipCode();
-
-    @Key("staticPhone")
-    @DefaultValue("44 7872345612")
-    String getStaticPhone();
-
-    @Key("staticSSN ")
-    @DefaultValue("DA42S12345")
-    String getStaticSSN ();
 }

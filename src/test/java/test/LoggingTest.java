@@ -1,6 +1,7 @@
 package test;
 
 import api.LoggingApi;
+import config.UserConfig;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -21,8 +22,8 @@ public class LoggingTest extends TestBase {
     RandomUtils randomUtils = new RandomUtils();
     LoggingApi loggingApi = new LoggingApi();
     String staticFullName = "Albus Dumbledore";
-    String staticUsername = "albusgryffindor";
-    String staticPassword = "ExpectoPatronum789";
+    String staticUsername = UserConfig.getUserName();
+    String staticPassword = UserConfig.getPassword();
     String staticFirstName = "Albus";
     String staticLastName = "Dumbledore";
     String staticAddress = "Room of Requirement 742";
@@ -33,8 +34,8 @@ public class LoggingTest extends TestBase {
     String staticSSN = "DA42S12345";
 
     @Test
-    @Tag("UI")
-    @DisplayName("Авторизация в системе User=True,Password=True")
+    @Tag("WEB")
+    @DisplayName("Проверка авторизации в системе User=True,Password=True")
     void loggingUserTruePasswordTrueUITest() {
         loggingPage.openPage();
         loggingPage.setValueUsername(staticUsername);
@@ -44,8 +45,8 @@ public class LoggingTest extends TestBase {
     }
 
     @Test
-    @Tag("UI")
-    @DisplayName("Авторизация в системе User=True,Password=False")
+    @Tag("WEB")
+    @DisplayName("Проверка авторизации в системе User=True,Password=False")
     void loggingUserTruePasswordFalseUITest() {
         loggingPage.openPage();
         loggingPage.setValueUsername(staticUsername);
@@ -55,8 +56,8 @@ public class LoggingTest extends TestBase {
     }
 
     @Test
-    @Tag("UI")
-    @DisplayName("Авторизация в системе User=False,Password=True")
+    @Tag("WEB")
+    @DisplayName("Проверка авторизации в системе User=False,Password=True")
     void loggingUserFalsePasswordTrueUITest() {
         loggingPage.openPage();
         loggingPage.setValueUsername(randomUtils.getUsernName());
@@ -66,8 +67,8 @@ public class LoggingTest extends TestBase {
     }
 
     @Test
-    @Tag("UI")
-    @DisplayName("Авторизация в системе User=False,Password=False")
+    @Tag("WEB")
+    @DisplayName("Проверка авторизации в системе User=False,Password=False")
     void loggingUserFalsePasswordFalsUITest() {
         loggingPage.openPage();
         loggingPage.setValueUsername(randomUtils.getUsernName());
@@ -78,8 +79,8 @@ public class LoggingTest extends TestBase {
 
 
     @Test
-    @Tag("API+UI")
-    @DisplayName("Авторизация на UI через API")
+    @Tag("WEB+API")
+    @DisplayName("Проверка авторизации на UI через API")
     public void testLogin() {
         Response response = loggingApi.getJSESSIONID(staticUsername, staticPassword);
         String sessionId = response.getCookie("JSESSIONID");
@@ -87,11 +88,12 @@ public class LoggingTest extends TestBase {
         loggingPage.openPage();
         accountPage.checkAccount(staticFullName);
     }
+
     @Test
     @Tag("API")
-    @DisplayName("Авторизация через API")
+    @DisplayName("Проверка авторизации через API")
     void sataticAccountCustomerIDTest() {
-        Response response = loggingApi.getlogging(staticUsername,staticPassword);
+        Response response = loggingApi.getlogging(staticUsername, staticPassword);
         String firstName = response.xmlPath().getString("customer.firstName");
         assertThat(firstName, equalTo(staticFirstName));
         String lastName = response.xmlPath().getString("customer.lastName");

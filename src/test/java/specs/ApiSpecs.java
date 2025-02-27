@@ -12,13 +12,13 @@ import static io.restassured.http.ContentType.JSON;
 
 public class ApiSpecs {
 
-    public static RequestSpecification RequestSpec=with()
+    public static RequestSpecification RequestSpec = with()
             .filter(withCustomTemplates())
             .log().all()
             .contentType(JSON);
 
 
-    public static ResponseSpecification createResponseSpecification(int statusCode, boolean expectJson ) {
+    public static ResponseSpecification createResponseSpecification(int statusCode, boolean expectJson) {
         ResponseSpecBuilder builder = new ResponseSpecBuilder()
                 .expectStatusCode(statusCode)
                 .log(STATUS)
@@ -31,6 +31,6 @@ public class ApiSpecs {
         return builder.build();
     }
 
-    public static final ResponseSpecification userResponseSpecification200 = createResponseSpecification(200,false);
-    public static final ResponseSpecification userResponseSpecification302 = createResponseSpecification(302,false);
+    public static final ResponseSpecification userResponseSpecification200 = createResponseSpecification(200, false);
+    public static final ResponseSpecification userResponseSpecification302 = createResponseSpecification(302, false);
 }

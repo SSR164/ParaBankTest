@@ -1,6 +1,7 @@
 package test;
 
 
+import config.UserConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -9,8 +10,7 @@ import pages.LoggingPage;
 import pages.RegisterPage;
 
 
-
-@Tag("tech")
+@Tag("TECH")
 public class TechnicalTest extends TestBase {
     LoggingPage loggingPage = new LoggingPage();
     AccountPage accountPage = new AccountPage();
@@ -23,11 +23,10 @@ public class TechnicalTest extends TestBase {
     String staticZipCode = "HM309 7HP";
     String staticPhone = "44 7872345612";
     String staticSSN = "DA42S12345";
-    String staticUsername = "albusgryffindor";
-    String staticPassword = "ExpectoPatronum789";
+    String staticUsername = UserConfig.getUserName();
+    String staticPassword = UserConfig.getPassword();
 
     @Test
-    @Tag("UI")
     // @Disabled("Тест для генерации данных.Parabank ежедневно чистит БД.")
     @DisplayName("Регистрация аккаунта для генерации тестовых данных")
     void sataticRegisterAccountMaxUITest() {

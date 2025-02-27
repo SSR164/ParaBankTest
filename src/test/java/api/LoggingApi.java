@@ -12,7 +12,7 @@ import static specs.ApiSpecs.*;
 
 public class LoggingApi {
     @Step("Авторизация через post для получения JSESSIONID")
-    public Response getJSESSIONID(String username,String password) {
+    public Response getJSESSIONID(String username, String password) {
         Response response = given(RequestSpec)
                 .filter(withCustomTemplates())
                 .contentType("application/x-www-form-urlencoded")  // Указываем формат данных
@@ -29,8 +29,9 @@ public class LoggingApi {
                 .extract().response();
         return response;
     }
+
     @Step("Авторизация через get")
-    public Response getlogging(String username,String password) {
+    public Response getlogging(String username, String password) {
         Response response = given(RequestSpec)
                 .contentType(ContentType.JSON)
                 .filter(withCustomTemplates())

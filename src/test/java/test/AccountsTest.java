@@ -2,6 +2,7 @@ package test;
 
 import api.AccountApi;
 import api.LoggingApi;
+import config.UserConfig;
 import config.WebDriverConfig;
 import io.restassured.response.Response;
 import org.aeonbits.owner.ConfigFactory;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import pages.AccountPage;
 import pages.LoggingPage;
 import utils.RandomUtils;
+
 import static io.qameta.allure.Allure.step;
 
 import java.util.List;
@@ -21,12 +23,13 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 @Tag("test")
 public class AccountsTest extends TestBase {
+    UserConfig userConfig = new UserConfig();
     LoggingApi loggingApi = new LoggingApi();
     AccountApi accountApi = new AccountApi();
-    LoggingPage loggingPage= new LoggingPage();
+    LoggingPage loggingPage = new LoggingPage();
     AccountPage accountPage = new AccountPage();
-    String staticUsername = "albusgryffindor";
-    String staticPassword = "ExpectoPatronum789";
+    String staticUsername = UserConfig.getUserName();
+    String staticPassword = UserConfig.getPassword();
     String staticFirstName = "Albus";
     String staticLastName = "Dumbledore";
     String staticAddress = "Room of Requirement 742";
@@ -67,7 +70,7 @@ public class AccountsTest extends TestBase {
 
     @Test
     @Tag("API")
-    @DisplayName("Проверит , что у пользователя есть счета ")
+    @DisplayName("Проверит, наличия счетов у пользователя")
     void getСheckCustomerAccountsTest() {
         Response response = loggingApi.getlogging(staticUsername, staticPassword);
         String customerId = response.xmlPath().getString("customer.id");
@@ -99,7 +102,7 @@ public class AccountsTest extends TestBase {
 
     @Test
     @Tag("API")
-    @DisplayName("Обновить информацию о клиенте")
+    @DisplayName("Проверка процедуры обновления информацию о клиенте")
     void updateCustomerInformationTest() {
         Response response2 = loggingApi.getlogging(staticUsername, staticPassword);
         String customerId = response2.xmlPath().getString("customer.id");
@@ -126,7 +129,7 @@ public class AccountsTest extends TestBase {
     }
 
     @Test
-    @Tag("UI+API")
+    @Tag("WEB+API")
     @DisplayName("Проверка процедуры перевода дс с одного счета пользователя на другой")
     void transferMoneyTest() {
         Response response = loggingApi.getlogging(staticUsername, staticPassword);
@@ -146,7 +149,6 @@ public class AccountsTest extends TestBase {
         accountPage.chooseAccount("1");
         accountPage.clickTransfer();
         accountPage.checkTransfer();
-
 
 
     }
