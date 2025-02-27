@@ -11,13 +11,13 @@ import pages.RegisterPage;
 import utils.RandomUtils;
 
 @Tag("test")
-public class RegisterTest extends TestBase{
+public class RegisterTest extends TestBase {
 
     LoggingPage loggingPage = new LoggingPage();
     AccountPage accountPage = new AccountPage();
     RegisterPage registerPage = new RegisterPage();
     RandomUtils randomUtils = new RandomUtils();
-    CustomerLookupPage customerLookupPage=new CustomerLookupPage();
+    CustomerLookupPage customerLookupPage = new CustomerLookupPage();
     String randomPassword = randomUtils.getPassword();
     String randomUsernName = randomUtils.getUsernName();
     String nameField = "Username";
@@ -112,6 +112,7 @@ public class RegisterTest extends TestBase{
         registerPage.clickRegister();
         accountPage.checkPasswordsNotMatch();
     }
+
     @Test
     @Tag("WEB")
     @DisplayName("Проверка кнопки \"Забыли пароль?\"")

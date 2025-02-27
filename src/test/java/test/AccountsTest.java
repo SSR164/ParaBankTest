@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import pages.AccountPage;
 import pages.LoggingPage;
 import utils.RandomUtils;
+
 import static io.qameta.allure.Allure.step;
 
 import java.util.List;
@@ -22,10 +23,10 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 @Tag("test")
 public class AccountsTest extends TestBase {
-    UserConfig userConfig= new UserConfig();
+    UserConfig userConfig = new UserConfig();
     LoggingApi loggingApi = new LoggingApi();
     AccountApi accountApi = new AccountApi();
-    LoggingPage loggingPage= new LoggingPage();
+    LoggingPage loggingPage = new LoggingPage();
     AccountPage accountPage = new AccountPage();
     String staticUsername = UserConfig.getUserName();
     String staticPassword = UserConfig.getPassword();
@@ -148,7 +149,6 @@ public class AccountsTest extends TestBase {
         accountPage.chooseAccount("1");
         accountPage.clickTransfer();
         accountPage.checkTransfer();
-
 
 
     }

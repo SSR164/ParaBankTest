@@ -88,11 +88,12 @@ public class LoggingTest extends TestBase {
         loggingPage.openPage();
         accountPage.checkAccount(staticFullName);
     }
+
     @Test
     @Tag("API")
     @DisplayName("Проверка авторизации через API")
     void sataticAccountCustomerIDTest() {
-        Response response = loggingApi.getlogging(staticUsername,staticPassword);
+        Response response = loggingApi.getlogging(staticUsername, staticPassword);
         String firstName = response.xmlPath().getString("customer.firstName");
         assertThat(firstName, equalTo(staticFirstName));
         String lastName = response.xmlPath().getString("customer.lastName");

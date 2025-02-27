@@ -10,7 +10,6 @@ import pages.LoggingPage;
 import pages.RegisterPage;
 
 
-
 @Tag("TECH")
 public class TechnicalTest extends TestBase {
     LoggingPage loggingPage = new LoggingPage();
