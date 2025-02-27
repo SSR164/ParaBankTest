@@ -28,7 +28,7 @@ public class TechnicalTest extends TestBase {
     String staticPassword = UserConfig.getPassword();
 
     @Test
-    @Tag("UI")
+    @Tag("TECH")
     // @Disabled("Тест для генерации данных.Parabank ежедневно чистит БД.")
     @DisplayName("Регистрация аккаунта для генерации тестовых данных")
     void sataticRegisterAccountMaxUITest() {

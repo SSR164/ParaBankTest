@@ -63,14 +63,29 @@ tasks.withType(Test) {
     }
 }
 
-    task bank_test(type: Test) {
-        useJUnitPlatform {
-            includeTags("test") // Запускаем тесты с тегом "test"
-        }
+task bank_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("test") // Запускаем тесты с тегом "test"
     }
+}
 
-    task bank_test_technical(type: Test) {
-        useJUnitPlatform {
-            includeTags("tech") // Запускаем тесты с тегом "tech"
-        }
+task bank_technical_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("TECH") // Запускаем тесты с тегом "tech"
     }
+}
+task bank_web_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("WEB") // Запускаем тесты с тегом "tech"
+    }
+}
+task bank_api_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("API") // Запускаем тесты с тегом "tech"
+    }
+}
+task bank_web_api_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("WEB+API") // Запускаем тесты с тегом "tech"
+    }
+}

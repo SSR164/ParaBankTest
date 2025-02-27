@@ -69,7 +69,7 @@ public class AccountsTest extends TestBase {
 
     @Test
     @Tag("API")
-    @DisplayName("Проверит , что у пользователя есть счета ")
+    @DisplayName("Проверит, наличия счетов у пользователя")
     void getСheckCustomerAccountsTest() {
         Response response = loggingApi.getlogging(staticUsername, staticPassword);
         String customerId = response.xmlPath().getString("customer.id");
@@ -101,7 +101,7 @@ public class AccountsTest extends TestBase {
 
     @Test
     @Tag("API")
-    @DisplayName("Обновить информацию о клиенте")
+    @DisplayName("Проверка процедуры обновления информацию о клиенте")
     void updateCustomerInformationTest() {
         Response response2 = loggingApi.getlogging(staticUsername, staticPassword);
         String customerId = response2.xmlPath().getString("customer.id");
@@ -128,7 +128,7 @@ public class AccountsTest extends TestBase {
     }
 
     @Test
-    @Tag("UI+API")
+    @Tag("WEB+API")
     @DisplayName("Проверка процедуры перевода дс с одного счета пользователя на другой")
     void transferMoneyTest() {
         Response response = loggingApi.getlogging(staticUsername, staticPassword);

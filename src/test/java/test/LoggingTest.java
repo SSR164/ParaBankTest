@@ -34,8 +34,8 @@ public class LoggingTest extends TestBase {
     String staticSSN = "DA42S12345";
 
     @Test
-    @Tag("UI")
-    @DisplayName("Авторизация в системе User=True,Password=True")
+    @Tag("WEB")
+    @DisplayName("Проверка авторизации в системе User=True,Password=True")
     void loggingUserTruePasswordTrueUITest() {
         loggingPage.openPage();
         loggingPage.setValueUsername(staticUsername);
@@ -45,8 +45,8 @@ public class LoggingTest extends TestBase {
     }
 
     @Test
-    @Tag("UI")
-    @DisplayName("Авторизация в системе User=True,Password=False")
+    @Tag("WEB")
+    @DisplayName("Проверка авторизации в системе User=True,Password=False")
     void loggingUserTruePasswordFalseUITest() {
         loggingPage.openPage();
         loggingPage.setValueUsername(staticUsername);
@@ -56,8 +56,8 @@ public class LoggingTest extends TestBase {
     }
 
     @Test
-    @Tag("UI")
-    @DisplayName("Авторизация в системе User=False,Password=True")
+    @Tag("WEB")
+    @DisplayName("Проверка авторизации в системе User=False,Password=True")
     void loggingUserFalsePasswordTrueUITest() {
         loggingPage.openPage();
         loggingPage.setValueUsername(randomUtils.getUsernName());
@@ -67,8 +67,8 @@ public class LoggingTest extends TestBase {
     }
 
     @Test
-    @Tag("UI")
-    @DisplayName("Авторизация в системе User=False,Password=False")
+    @Tag("WEB")
+    @DisplayName("Проверка авторизации в системе User=False,Password=False")
     void loggingUserFalsePasswordFalsUITest() {
         loggingPage.openPage();
         loggingPage.setValueUsername(randomUtils.getUsernName());
@@ -79,8 +79,8 @@ public class LoggingTest extends TestBase {
 
 
     @Test
-    @Tag("API+UI")
-    @DisplayName("Авторизация на UI через API")
+    @Tag("WEB+API")
+    @DisplayName("Проверка авторизации на UI через API")
     public void testLogin() {
         Response response = loggingApi.getJSESSIONID(staticUsername, staticPassword);
         String sessionId = response.getCookie("JSESSIONID");
@@ -90,7 +90,7 @@ public class LoggingTest extends TestBase {
     }
     @Test
     @Tag("API")
-    @DisplayName("Авторизация через API")
+    @DisplayName("Проверка авторизации через API")
     void sataticAccountCustomerIDTest() {
         Response response = loggingApi.getlogging(staticUsername,staticPassword);
         String firstName = response.xmlPath().getString("customer.firstName");

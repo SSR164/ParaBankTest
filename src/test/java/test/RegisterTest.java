@@ -32,8 +32,8 @@ public class RegisterTest extends TestBase{
     String staticPassword = UserConfig.getPassword();
 
     @Test
-    @Tag("UI")
-    @DisplayName("Регистрация аккаунта с рандомными данными, заполняем все поля ")
+    @Tag("WEB")
+    @DisplayName("Проверка регистрации аккаунта с рандомными данными, заполняем все поля")
     void randomRegisterAccountUITest() {
         loggingPage.openPage();
         loggingPage.clickRegister();
@@ -55,8 +55,8 @@ public class RegisterTest extends TestBase{
 
 
     @Test
-    @Tag("UI")
-    @DisplayName("Регистрация аккаунта с рандомными данными, заполняем только обязательные поля")
+    @Tag("WEB")
+    @DisplayName("Проверка регистрации аккаунта с рандомными данными, заполняем только обязательные поля")
     void randomRegisterAccountMimUITest() {
         loggingPage.openPage();
         loggingPage.clickRegister();
@@ -76,8 +76,8 @@ public class RegisterTest extends TestBase{
     }
 
     @Test
-    @Tag("UI")
-    @DisplayName("Регистрация аккаунта с рандомными данными, поле Username не заполнено")
+    @Tag("WEB")
+    @DisplayName("Проверка регистрации аккаунта с рандомными данными, поле Username не заполнено")
     void registerAccountFieldNotUITest() {
         loggingPage.openPage();
         loggingPage.clickRegister();
@@ -95,8 +95,8 @@ public class RegisterTest extends TestBase{
     }
 
     @Test
-    @Tag("UI")
-    @DisplayName("Регистрация аккаунта с рандомными данными, пароли не совпадают")
+    @Tag("WEB")
+    @DisplayName("Проверка регистрации аккаунта с рандомными данными, пароли не совпадают")
     void registerAccountPasswordsNotMatchUITest() {
         loggingPage.openPage();
         loggingPage.clickRegister();
@@ -113,7 +113,7 @@ public class RegisterTest extends TestBase{
         accountPage.checkPasswordsNotMatch();
     }
     @Test
-    @Tag("UI")
+    @Tag("WEB")
     @DisplayName("Проверка кнопки \"Забыли пароль?\"")
     void forgotLoginInfo() {
         loggingPage.openPage();
