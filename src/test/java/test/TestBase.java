@@ -45,11 +45,11 @@ public class TestBase {
         boolean isUiTests = !"false".equals(System.getProperty("uiTests", "true"));
         RestAssured.baseURI = config.getBaseUrl();
         RestAssured.defaultParser = Parser.JSON;
-        RestAssured.authentication = RestAssured.basic(
-                UserConfig.getUserName(),
-                UserConfig.getPassword()
+        //RestAssured.authentication = RestAssured.basic(
+                //UserConfig.getUserName(),
+                //UserConfig.getPassword()
 
-        );
+        //);
         if (isUiTests) {
             Configuration.baseUrl = config.getBaseUrl();
             Configuration.headless = false;

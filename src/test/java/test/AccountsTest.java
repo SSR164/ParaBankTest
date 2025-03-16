@@ -3,9 +3,9 @@ package test;
 import api.AccountApi;
 import api.LoggingApi;
 import config.UserConfig;
-import config.WebDriverConfig;
+import dto.User;
+import factory.UserFactory;
 import io.restassured.response.Response;
-import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -23,29 +23,16 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 @Tag("test")
 public class AccountsTest extends TestBase {
-    UserConfig userConfig = new UserConfig();
     LoggingApi loggingApi = new LoggingApi();
     AccountApi accountApi = new AccountApi();
     LoggingPage loggingPage = new LoggingPage();
     AccountPage accountPage = new AccountPage();
-    String staticUsername = UserConfig.getUserName();
-    String staticPassword = UserConfig.getPassword();
-    String staticFirstName = "Albus";
-    String staticLastName = "Dumbledore";
-    String staticAddress = "Room of Requirement 742";
-    String staticCity = "Hogsmeade";
-    String staticState = "Scotland";
-    String staticZipCode = "HM309 7HP";
-    String staticPhone = "44 7872345612";
-    String staticSSN = "DA42S12345";
+    UserFactory userFactory= new UserFactory();
     RandomUtils randomUtils = new RandomUtils();
-    String randomFirstName = randomUtils.getFirstName();
-    String randomLastName = randomUtils.getLastName();
-    String randomStreet = randomUtils.getAddress();
-    String randomCity = randomUtils.getCity();
-    String randomState = randomUtils.getState();
-    String randomZipCode = randomUtils.getZipCode();
-    String randomphoneNumber = randomUtils.getPhone();
+    //String fixedUsername = UserConfig.getUserName();
+    //String fixedPassword = UserConfig.getPassword();
+    String fixedUserName= "albusgryffindor";
+    String fixedPassword="12345";
     String randomSSN = randomUtils.getSSN();
     String randomPassword = randomUtils.getPassword();
     String randomUsernName = randomUtils.getUsernName();
@@ -55,7 +42,8 @@ public class AccountsTest extends TestBase {
     @Tag("API")
     @DisplayName("Получить список счетов для пользователя, проверить что все счета в списке принадлежат пользователю")
     void checkCustomerAccountsTest() {
-        Response response = loggingApi.getlogging(staticUsername, staticPassword);
+
+        Response response = loggingApi.getlogging(fixedUserName, fixedPassword);
         String customerId = response.xmlPath().getString("customer.id");
         Response response1 = accountApi.getCustomerAccounts(customerId);
         List<String> accountIds = response1.xmlPath().getList("accounts.account.id");
@@ -72,7 +60,7 @@ public class AccountsTest extends TestBase {
     @Tag("API")
     @DisplayName("Проверит, наличия счетов у пользователя")
     void getСheckCustomerAccountsTest() {
-        Response response = loggingApi.getlogging(staticUsername, staticPassword);
+        Response response = loggingApi.getlogging(fixedUserName, fixedPassword);
         String customerId = response.xmlPath().getString("customer.id");
         Response response1 = accountApi.getCustomerAccounts(customerId);
         step("Проверяем, что пользователю есть счета", () -> {
@@ -86,7 +74,7 @@ public class AccountsTest extends TestBase {
     @Tag("API")
     @DisplayName("Проверка процедуры получения кредита")
     void getAndСheckCustomerAccountsTest() {
-        Response response = loggingApi.getlogging(staticUsername, staticPassword);
+        Response response = loggingApi.getlogging(fixedUserName, fixedPassword);
         String customerId = response.xmlPath().getString("customer.id");
         Response response1 = accountApi.getCustomerAccounts(customerId);
         String accountId = response1.xmlPath().getString("accounts.account[0].id");
@@ -104,27 +92,29 @@ public class AccountsTest extends TestBase {
     @Tag("API")
     @DisplayName("Проверка процедуры обновления информацию о клиенте")
     void updateCustomerInformationTest() {
-        Response response2 = loggingApi.getlogging(staticUsername, staticPassword);
+        User user=userFactory.getUser();
+        User userFixed=userFactory.getUserFixed();
+        Response response2 = loggingApi.getlogging(userFixed.getUserName(),userFixed.getPassword());
         String customerId = response2.xmlPath().getString("customer.id");
-        accountApi.updateCustomer(customerId, randomFirstName, randomLastName, randomStreet, randomCity, randomState, randomZipCode, randomphoneNumber, randomSSN, randomUsernName, randomPassword);
-        Response response = loggingApi.getlogging(randomUsernName, randomPassword);
+        accountApi.updateCustomer(customerId, user);
+        Response response = loggingApi.getlogging(user.getUserName(), user.getPassword());
         String firstName = response.xmlPath().getString("customer.firstName");
-        assertThat(firstName, equalTo(randomFirstName));
+        assertThat(firstName, equalTo(user.getFirstName()));
         String lastName = response.xmlPath().getString("customer.lastName");
-        assertThat(lastName, equalTo(randomLastName));
+        assertThat(lastName, equalTo(user.getLastName()));
         String street = response.xmlPath().getString("customer.address.street");
-        assertThat(street, equalTo(randomStreet));
+        assertThat(street, equalTo(user.getAddress().getStreet()));
         String city = response.xmlPath().getString("customer.address.city");
-        assertThat(city, equalTo(randomCity));
+        assertThat(city, equalTo(user.getAddress().getCity()));
         String state = response.xmlPath().getString("customer.address.state");
-        assertThat(state, equalTo(randomState));
+        assertThat(state, equalTo(user.getAddress().getState()));
         String zipCode = response.xmlPath().getString("customer.address.zipCode");
-        assertThat(zipCode, equalTo(randomZipCode));
+        assertThat(zipCode, equalTo(user.getAddress().getZipCode()));
         String phoneNumber = response.xmlPath().getString("customer.phoneNumber");
-        assertThat(phoneNumber, equalTo(randomphoneNumber));
+        assertThat(phoneNumber, equalTo(user.getPhoneNumber()));
         String ssn = response.xmlPath().getString("customer.ssn");
-        assertThat(ssn, equalTo(randomSSN));
-        accountApi.updateCustomer(customerId, staticFirstName, staticLastName, staticAddress, staticCity, staticState, staticZipCode, staticPhone, staticSSN, staticUsername, staticPassword);
+        assertThat(ssn, equalTo(user.getSsn()));
+        accountApi.updateCustomer(customerId, userFixed);
 
     }
 
@@ -132,7 +122,7 @@ public class AccountsTest extends TestBase {
     @Tag("WEB+API")
     @DisplayName("Проверка процедуры перевода дс с одного счета пользователя на другой")
     void transferMoneyTest() {
-        Response response = loggingApi.getlogging(staticUsername, staticPassword);
+        Response response = loggingApi.getlogging(fixedUserName, fixedPassword);
         String customerId = response.xmlPath().getString("customer.id");
         Response response1 = accountApi.getCustomerAccounts(customerId);
         String accountIds = response1.xmlPath().getString("accounts.account[0].id");
@@ -140,7 +130,7 @@ public class AccountsTest extends TestBase {
         if (numberAccounts == 1) {
             accountApi.creatAccounts(customerId, 0, accountIds);
         }
-        Response response2 = loggingApi.getJSESSIONID(staticUsername, staticPassword);
+        Response response2 = loggingApi.getJSESSIONID(fixedUserName, fixedPassword);
         String sessionId = response2.getCookie("JSESSIONID");
         loggingPage.loginPageRegisteredPerson(sessionId);
         loggingPage.openPage();
