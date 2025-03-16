@@ -1,5 +1,7 @@
 package api;
 
+
+import dto.User;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
@@ -68,19 +70,19 @@ public class AccountApi {
     }
 
     @Step("Подать заявку на кредит")
-    public Response updateCustomer(String customerId, String firstName, String lastName, String street, String city, String state, String zipCode, String phoneNumber, String ssn, String username, String password) {
+    public Response updateCustomer(String customerId, User user) {
         Response response = given(RequestSpec)
                 .pathParam("customerId", customerId)
-                .queryParam("firstName", firstName)
-                .queryParam("lastName", lastName)
-                .queryParam("street", street)
-                .queryParam("city", city)
-                .queryParam("state", state)
-                .queryParam("zipCode", zipCode)
-                .queryParam("phoneNumber", phoneNumber)
-                .queryParam("ssn", ssn)
-                .queryParam("username", username)
-                .queryParam("password", password)
+                .queryParam("firstName", user.getFirstName())
+                .queryParam("lastName", user.getLastName())
+                .queryParam("street", user.getAddress().getStreet())
+                .queryParam("city", user.getAddress().getCity())
+                .queryParam("state", user.getAddress().getState())
+                .queryParam("zipCode", user.getAddress().getZipCode())
+                .queryParam("phoneNumber", user.getPhoneNumber())
+                .queryParam("ssn", user.getSsn())
+                .queryParam("username", user.getUserName())
+                .queryParam("password", user.getPassword())
                 .when()
                 .post("/parabank/services/bank/customers/update/{customerId}") // <-- передаем параметры в URL
                 .then()

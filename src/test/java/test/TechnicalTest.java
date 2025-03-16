@@ -2,6 +2,8 @@ package test;
 
 
 import config.UserConfig;
+import dto.User;
+import factory.UserFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -15,36 +17,28 @@ public class TechnicalTest extends TestBase {
     LoggingPage loggingPage = new LoggingPage();
     AccountPage accountPage = new AccountPage();
     RegisterPage registerPage = new RegisterPage();
-    String staticFirstName = "Albus";
-    String staticLastName = "Dumbledore";
-    String staticAddress = "Room of Requirement 742";
-    String staticCity = "Hogsmeade";
-    String staticState = "Scotland";
-    String staticZipCode = "HM309 7HP";
-    String staticPhone = "44 7872345612";
-    String staticSSN = "DA42S12345";
-    String staticUsername = UserConfig.getUserName();
-    String staticPassword = UserConfig.getPassword();
+    UserFactory userFactory=new UserFactory();
 
     @Test
     // @Disabled("Тест для генерации данных.Parabank ежедневно чистит БД.")
     @DisplayName("Регистрация аккаунта для генерации тестовых данных")
     void sataticRegisterAccountMaxUITest() {
+        User user = userFactory. getUserFixed();
         loggingPage.openPage();
         loggingPage.clickRegister();
-        registerPage.setValueFirstName(staticFirstName);
-        registerPage.setValueLastName(staticLastName);
-        registerPage.setValueAddress(staticAddress);
-        registerPage.setValueCity(staticCity);
-        registerPage.setValueState(staticState);
-        registerPage.setValueZipCode(staticZipCode);
-        registerPage.setValuePhone(staticPhone);
-        registerPage.setValueSSN(staticSSN);
-        registerPage.setValueUsernName(staticUsername);
-        registerPage.setValuePassword(staticPassword);
-        registerPage.setValueConfirm(staticPassword);
+        registerPage.setValueFirstName(user.getFirstName());
+        registerPage.setValueLastName(user.getLastName());
+        registerPage.setValueAddress(user.getAddress().getStreet());
+        registerPage.setValueCity(user.getAddress().getCity());
+        registerPage.setValueState(user.getAddress().getState());
+        registerPage.setValueZipCode(user.getAddress().getZipCode());
+        registerPage.setValuePhone(user.getPhoneNumber());
+        registerPage.setValueSSN(user.getSsn());
+        registerPage.setValueUsernName(user.getUserName());
+        registerPage.setValuePassword(user.getPassword());
+        registerPage.setValueConfirm(user.getPassword());
         registerPage.clickRegister();
-        accountPage.checkСreateAccount(staticUsername);
+        accountPage.checkСreateAccount(user.getUserName());
 
     }
 

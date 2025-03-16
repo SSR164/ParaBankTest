@@ -1,6 +1,8 @@
 package test;
 
 import config.UserConfig;
+import dto.User;
+import factory.UserFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -17,6 +19,7 @@ public class RegisterTest extends TestBase {
     AccountPage accountPage = new AccountPage();
     RegisterPage registerPage = new RegisterPage();
     RandomUtils randomUtils = new RandomUtils();
+    UserFactory userFactory=new UserFactory();
     CustomerLookupPage customerLookupPage = new CustomerLookupPage();
     String randomPassword = randomUtils.getPassword();
     String randomUsernName = randomUtils.getUsernName();
@@ -28,28 +31,31 @@ public class RegisterTest extends TestBase {
     String staticState = "Scotland";
     String staticZipCode = "HM309 7HP";
     String staticSSN = "DA42S12345";
-    String staticUsername = UserConfig.getUserName();
-    String staticPassword = UserConfig.getPassword();
+    //String staticUsername = UserConfig.getUserName();
+    //String staticPassword = UserConfig.getPassword();
+    String staticUsername = "11";
+    String staticPassword = "123";
 
     @Test
     @Tag("WEB")
     @DisplayName("Проверка регистрации аккаунта с рандомными данными, заполняем все поля")
     void randomRegisterAccountUITest() {
+        User user = userFactory.getUser();
         loggingPage.openPage();
         loggingPage.clickRegister();
-        registerPage.setValueFirstName(randomUtils.getFirstName());
-        registerPage.setValueLastName(randomUtils.getLastName());
-        registerPage.setValueAddress(randomUtils.getAddress());
-        registerPage.setValueCity(randomUtils.getCity());
-        registerPage.setValueState(randomUtils.getState());
-        registerPage.setValueZipCode(randomUtils.getZipCode());
-        registerPage.setValuePhone(randomUtils.getPhone());
-        registerPage.setValueSSN(randomUtils.getSSN());
-        registerPage.setValueUsernName(randomUsernName);
-        registerPage.setValuePassword(randomPassword);
-        registerPage.setValueConfirm(randomPassword);
+        registerPage.setValueFirstName(user.getFirstName());
+        registerPage.setValueLastName(user.getLastName());
+        registerPage.setValueAddress(user.getAddress().getStreet());
+        registerPage.setValueCity(user.getAddress().getCity());
+        registerPage.setValueState(user.getAddress().getState());
+        registerPage.setValueZipCode(user.getAddress().getZipCode());
+        registerPage.setValuePhone(user.getPhoneNumber());
+        registerPage.setValueSSN(user.getSsn());
+        registerPage.setValueUsernName(user.getUserName());
+        registerPage.setValuePassword(user.getPassword());
+        registerPage.setValueConfirm(user.getPassword());
         registerPage.clickRegister();
-        accountPage.checkСreateAccount(randomUsernName);
+        accountPage.checkСreateAccount(user.getUserName());
 
     }
 
