@@ -5,19 +5,7 @@ import dto.User;
 import utils.RandomUtils;
 
 public class UserFactory {
-    RandomUtils randomUtils = new RandomUtils();
-    //String fixedUsername = UserConfig.getUserName();
-    //String fixedPassword = UserConfig.getPassword();
-    String fixedFirstName = "Albus";
-    String fixedLastName = "Dumbledore";
-    String fixedAddress = "Room of Requirement 742";
-    String fixedCity = "Hogsmeade";
-    String fixedState = "Scotland";
-    String fixedZipCode = "HM309 7HP";
-    String fixedPhone = "44 7872345612";
-    String fixedSSN = "DA42S12345";
-    String fixedUsernName= "albusgryffindor";
-    String fixedPassword="12345";
+    final RandomUtils randomUtils = new RandomUtils();
 
     public User getUser() {
         return User
@@ -32,11 +20,24 @@ public class UserFactory {
                         .build())
                 .phoneNumber(randomUtils.getPhone())
                 .ssn(randomUtils.getSSN())
-                .userName(randomUtils.getUsernName())
+                .userName(randomUtils.getUserName())
                 .password(randomUtils.getPassword())
                 .build();
     }
+
     public User getUserFixed() {
+        String fixedPassword = "12345";
+        String fixedUserName = "albusgryffindor";
+        String fixedSSN = "DA42S12345";
+        String fixedPhone = "44 7872345612";
+        String fixedZipCode = "HM309 7HP";
+        String fixedState = "Scotland";
+        String fixedCity = "Hogsmeade";
+        String fixedAddress = "Room of Requirement 742";
+        String fixedLastName = "Dumbledore";
+        //String fixedUsername = UserConfig.getUserName();
+        //String fixedPassword = UserConfig.getPassword();
+        String fixedFirstName = "Albus";
         return User
                 .builder()
                 .firstName(fixedFirstName)
@@ -47,9 +48,9 @@ public class UserFactory {
                         .state(fixedState)
                         .zipCode((fixedZipCode))
                         .build())
-                .phoneNumber(fixedPhone )
+                .phoneNumber(fixedPhone)
                 .ssn(fixedSSN)
-                .userName(fixedUsernName )
+                .userName(fixedUserName)
                 .password(fixedPassword)
                 .build();
     }

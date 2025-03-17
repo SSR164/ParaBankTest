@@ -1,4 +1,5 @@
 package dto;
+
 import lombok.*;
 
 @AllArgsConstructor
@@ -15,13 +16,12 @@ public class User {
     private String userName;
     private String password;
 
-    // Исправлено: добавлен модификатор static
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
     @Getter
     @Setter
-    public static class Address {  // <-- static
+    public static class Address {
         private String street;
         private String city;
         private String state;
