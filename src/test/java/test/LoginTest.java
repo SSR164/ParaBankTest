@@ -1,6 +1,8 @@
 package test;
 
 import api.LoginApi;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import dto.User;
 import factory.UserFactory;
 import io.restassured.response.Response;
@@ -13,8 +15,7 @@ import utils.RandomUtils;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-
+import static org.assertj.core.api.Assertions.assertThat;
 @Tag("test")
 public class LoginTest extends TestBase {
     private final LoginPage loginPage = new LoginPage();
@@ -87,25 +88,16 @@ public class LoginTest extends TestBase {
     @Test
     @Tag("API")
     @DisplayName("Проверка авторизации через API")
-    void fixedAccountCustomerIDTest() {
-        User user = userFactory.getUser();
-        Response response = loginApi.getLogin(user.getUserName(), user.getPassword());
-        String firstName = response.xmlPath().getString("customer.firstName");
-        assertThat(firstName, equalTo(user.getFirstName()));
-        String lastName = response.xmlPath().getString("customer.lastName");
-        assertThat(lastName, equalTo(user.getLastName()));
-        String street = response.xmlPath().getString("customer.address.street");
-        assertThat(street, equalTo(user.getAddress().getStreet()));
-        String city = response.xmlPath().getString("customer.address.city");
-        assertThat(city, equalTo(user.getAddress().getCity()));
-        String state = response.xmlPath().getString("customer.address.state");
-        assertThat(state, equalTo(user.getAddress().getState()));
-        String zipCode = response.xmlPath().getString("customer.address.zipCode");
-        assertThat(zipCode, equalTo(user.getAddress().getZipCode()));
-        String phoneNumber = response.xmlPath().getString("customer.phoneNumber");
-        assertThat(phoneNumber, equalTo(user.getPhoneNumber()));
-        String ssn = response.xmlPath().getString("customer.ssn");
-        assertThat(ssn, equalTo(user.getSsn()));
+    void fixedAccountCustomerIDTest() throws JsonProcessingException {
+        User user = userFactory.getUserFixed();//Создали пользователя которого будем проверять
+        Response response = loginApi.getLogin(user.getUserName(), user.getPassword());//Залогинились под пользователем
+        String responseXml= response.getBody().asString();//достали xml которую прислал be
+        XmlMapper xmlMapper = new XmlMapper();//Созали объект xml мапера
+        User responsedUser = xmlMapper.readValue(responseXml, User.class);//Наполняет объект responsedUser данными из responseXml приведенными к типу User.class
+        assertThat(responsedUser).usingRecursiveComparison().ignoringFields("id") //сравниваем responsedUser и user , игнорим id userName password
+                .ignoringFields("userName")
+                .ignoringFields("password")
+                .isEqualTo(user);
 
     }
 
