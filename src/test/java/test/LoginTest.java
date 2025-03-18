@@ -2,7 +2,7 @@ package test;
 
 import api.LoginApi;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+
 import dto.User;
 import factory.UserFactory;
 import io.restassured.response.Response;
@@ -12,10 +12,11 @@ import org.junit.jupiter.api.Test;
 import pages.AccountPage;
 import pages.LoginPage;
 import utils.RandomUtils;
+import utils.UserCheckUtils;
 
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.assertj.core.api.Assertions.assertThat;
+
+
 @Tag("test")
 public class LoginTest extends TestBase {
     private final LoginPage loginPage = new LoginPage();
@@ -89,15 +90,11 @@ public class LoginTest extends TestBase {
     @Tag("API")
     @DisplayName("Проверка авторизации через API")
     void fixedAccountCustomerIDTest() throws JsonProcessingException {
-        User user = userFactory.getUserFixed();//Создали пользователя которого будем проверять
-        Response response = loginApi.getLogin(user.getUserName(), user.getPassword());//Залогинились под пользователем
-        String responseXml= response.getBody().asString();//достали xml которую прислал be
-        XmlMapper xmlMapper = new XmlMapper();//Созали объект xml мапера
-        User responsedUser = xmlMapper.readValue(responseXml, User.class);//Наполняет объект responsedUser данными из responseXml приведенными к типу User.class
-        assertThat(responsedUser).usingRecursiveComparison().ignoringFields("id") //сравниваем responsedUser и user , игнорим id userName password
-                .ignoringFields("userName")
-                .ignoringFields("password")
-                .isEqualTo(user);
+        User user = userFactory.getUserFixed();
+        Response response = loginApi.getLogin(user.getUserName(), user.getPassword());
+        String responseXml = response.getBody().asString();
+        UserCheckUtils.checkFields(responseXml, user);
+
 
     }
 

@@ -72,7 +72,7 @@ public class AccountPage {
     }
 
     @Step("Выбрать счет")
-    public AccountPage chooseAccount(String account) {
+    public AccountPage chooseAccount(Integer account) {
         chooseAccount.selectOption(account);
         return this;
     }

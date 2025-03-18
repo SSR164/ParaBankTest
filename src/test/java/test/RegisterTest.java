@@ -12,6 +12,7 @@ import pages.LoginPage;
 import pages.RegisterPage;
 import utils.RandomUtils;
 
+
 @Tag("test")
 public class RegisterTest extends TestBase {
 
