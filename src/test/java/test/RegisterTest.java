@@ -1,6 +1,6 @@
 package test;
 
-import config.UserConfig;
+
 import dto.User;
 import factory.UserFactory;
 import org.junit.jupiter.api.DisplayName;
@@ -8,33 +8,21 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.AccountPage;
 import pages.CustomerLookupPage;
-import pages.LoggingPage;
+import pages.LoginPage;
 import pages.RegisterPage;
 import utils.RandomUtils;
+
 
 @Tag("test")
 public class RegisterTest extends TestBase {
 
-    LoggingPage loggingPage = new LoggingPage();
-    AccountPage accountPage = new AccountPage();
-    RegisterPage registerPage = new RegisterPage();
-    RandomUtils randomUtils = new RandomUtils();
-    UserFactory userFactory=new UserFactory();
-    CustomerLookupPage customerLookupPage = new CustomerLookupPage();
-    String randomPassword = randomUtils.getPassword();
-    String randomUsernName = randomUtils.getUsernName();
-    String nameField = "Username";
-    String staticFirstName = "Albus";
-    String staticLastName = "Dumbledore";
-    String staticAddress = "Room of Requirement 742";
-    String staticCity = "Hogsmeade";
-    String staticState = "Scotland";
-    String staticZipCode = "HM309 7HP";
-    String staticSSN = "DA42S12345";
-    //String staticUsername = UserConfig.getUserName();
-    //String staticPassword = UserConfig.getPassword();
-    String staticUsername = "11";
-    String staticPassword = "123";
+   private final LoginPage loggingPage = new LoginPage();
+   private final AccountPage accountPage = new AccountPage();
+   private final RegisterPage registerPage = new RegisterPage();
+   private final RandomUtils randomUtils = new RandomUtils();
+   private final UserFactory userFactory = new UserFactory();
+   private final CustomerLookupPage customerLookupPage = new CustomerLookupPage();
+
 
     @Test
     @Tag("WEB")
@@ -51,11 +39,11 @@ public class RegisterTest extends TestBase {
         registerPage.setValueZipCode(user.getAddress().getZipCode());
         registerPage.setValuePhone(user.getPhoneNumber());
         registerPage.setValueSSN(user.getSsn());
-        registerPage.setValueUsernName(user.getUserName());
+        registerPage.setValueUserName(user.getUserName());
         registerPage.setValuePassword(user.getPassword());
         registerPage.setValueConfirm(user.getPassword());
         registerPage.clickRegister();
-        accountPage.checkСreateAccount(user.getUserName());
+        accountPage.checkCreateAccount(user.getUserName());
 
     }
 
@@ -64,20 +52,21 @@ public class RegisterTest extends TestBase {
     @Tag("WEB")
     @DisplayName("Проверка регистрации аккаунта с рандомными данными, заполняем только обязательные поля")
     void randomRegisterAccountMimUITest() {
+        User user = userFactory.getUser();
         loggingPage.openPage();
         loggingPage.clickRegister();
-        registerPage.setValueFirstName(randomUtils.getFirstName());
-        registerPage.setValueLastName(randomUtils.getLastName());
-        registerPage.setValueAddress(randomUtils.getAddress());
-        registerPage.setValueCity(randomUtils.getCity());
-        registerPage.setValueState(randomUtils.getState());
-        registerPage.setValueZipCode(randomUtils.getZipCode());
-        registerPage.setValueSSN(randomUtils.getSSN());
-        registerPage.setValueUsernName(randomUsernName);
-        registerPage.setValuePassword(randomPassword);
-        registerPage.setValueConfirm(randomPassword);
+        registerPage.setValueFirstName(user.getFirstName());
+        registerPage.setValueLastName(user.getLastName());
+        registerPage.setValueAddress(user.getAddress().getStreet());
+        registerPage.setValueCity(user.getAddress().getCity());
+        registerPage.setValueState(user.getAddress().getState());
+        registerPage.setValueZipCode(user.getAddress().getZipCode());
+        registerPage.setValueSSN(user.getSsn());
+        registerPage.setValueUserName(user.getUserName());
+        registerPage.setValuePassword(user.getPassword());
+        registerPage.setValueConfirm(user.getPassword());
         registerPage.clickRegister();
-        accountPage.checkСreateAccount(randomUsernName);
+        accountPage.checkCreateAccount(user.getUserName());
 
     }
 
@@ -85,35 +74,37 @@ public class RegisterTest extends TestBase {
     @Tag("WEB")
     @DisplayName("Проверка регистрации аккаунта с рандомными данными, поле Username не заполнено")
     void registerAccountFieldNotUITest() {
+        User user = userFactory.getUser();
         loggingPage.openPage();
         loggingPage.clickRegister();
-        registerPage.setValueFirstName(randomUtils.getFirstName());
-        registerPage.setValueLastName(randomUtils.getLastName());
-        registerPage.setValueAddress(randomUtils.getAddress());
-        registerPage.setValueCity(randomUtils.getCity());
-        registerPage.setValueState(randomUtils.getState());
-        registerPage.setValueZipCode(randomUtils.getZipCode());
-        registerPage.setValueSSN(randomUtils.getSSN());
-        registerPage.setValuePassword(randomPassword);
-        registerPage.setValueConfirm(randomPassword);
+        registerPage.setValueFirstName(user.getFirstName());
+        registerPage.setValueLastName(user.getLastName());
+        registerPage.setValueAddress(user.getAddress().getStreet());
+        registerPage.setValueCity(user.getAddress().getCity());
+        registerPage.setValueState(user.getAddress().getState());
+        registerPage.setValueZipCode(user.getAddress().getZipCode());
+        registerPage.setValueSSN(user.getSsn());
+        registerPage.setValuePassword(user.getPassword());
+        registerPage.setValueConfirm(user.getPassword());
         registerPage.clickRegister();
-        accountPage.checkFieldNotFilled(nameField);
+        accountPage.checkFieldNotFilled("Username");
     }
 
     @Test
     @Tag("WEB")
     @DisplayName("Проверка регистрации аккаунта с рандомными данными, пароли не совпадают")
     void registerAccountPasswordsNotMatchUITest() {
+        User user = userFactory.getUser();
         loggingPage.openPage();
         loggingPage.clickRegister();
-        registerPage.setValueFirstName(randomUtils.getFirstName());
-        registerPage.setValueLastName(randomUtils.getLastName());
-        registerPage.setValueAddress(randomUtils.getAddress());
-        registerPage.setValueCity(randomUtils.getCity());
-        registerPage.setValueState(randomUtils.getState());
-        registerPage.setValueZipCode(randomUtils.getZipCode());
-        registerPage.setValueSSN(randomUtils.getSSN());
-        registerPage.setValuePassword(randomUtils.getPassword());
+        registerPage.setValueFirstName(user.getFirstName());
+        registerPage.setValueLastName(user.getLastName());
+        registerPage.setValueAddress(user.getAddress().getStreet());
+        registerPage.setValueCity(user.getAddress().getCity());
+        registerPage.setValueState(user.getAddress().getState());
+        registerPage.setValueZipCode(user.getAddress().getZipCode());
+        registerPage.setValueSSN(user.getSsn());
+        registerPage.setValuePassword(user.getPassword());
         registerPage.setValueConfirm(randomUtils.getPassword());
         registerPage.clickRegister();
         accountPage.checkPasswordsNotMatch();
@@ -123,19 +114,20 @@ public class RegisterTest extends TestBase {
     @Tag("WEB")
     @DisplayName("Проверка кнопки \"Забыли пароль?\"")
     void forgotLoginInfo() {
+        User user = userFactory.getUserFixed();
         loggingPage.openPage();
         registerPage.clickForgotLoginInfo();
-        customerLookupPage.setValueFirstName(staticFirstName);
-        customerLookupPage.setValueLastName(staticLastName);
-        customerLookupPage.setValueAddress(staticAddress);
-        customerLookupPage.setValueCity(staticCity);
-        customerLookupPage.setValueState(staticState);
-        customerLookupPage.setValueZipCode(staticZipCode);
-        customerLookupPage.setValueSSN(staticSSN);
+        customerLookupPage.setValueFirstName(user.getFirstName());
+        customerLookupPage.setValueLastName(user.getLastName());
+        customerLookupPage.setValueAddress(user.getAddress().getStreet());
+        customerLookupPage.setValueCity(user.getAddress().getCity());
+        customerLookupPage.setValueState(user.getAddress().getState());
+        customerLookupPage.setValueZipCode(user.getAddress().getZipCode());
+        customerLookupPage.setValueSSN(user.getSsn());
         customerLookupPage.clickFindMyLoginInfo();
         accountPage.checkLoginInformation();
-        accountPage.checkUsername(staticUsername);
-        accountPage.checkPassword(staticPassword);
+        accountPage.checkUsername(user.getUserName());
+        accountPage.checkPassword(user.getPassword());
 
 
     }

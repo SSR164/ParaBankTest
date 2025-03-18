@@ -46,8 +46,8 @@ public class TestBase {
         RestAssured.baseURI = config.getBaseUrl();
         RestAssured.defaultParser = Parser.JSON;
         //RestAssured.authentication = RestAssured.basic(
-                //UserConfig.getUserName(),
-                //UserConfig.getPassword()
+        //UserConfig.getUserName(),
+        //UserConfig.getPassword()
 
         //);
         if (isUiTests) {
@@ -93,7 +93,7 @@ public class TestBase {
     }
 
     @AfterEach
-    void aaddAttachments() {
+    void addAttachments() {
         System.out.println("Executing addAttachments()...");
 
         if (!Configuration.browser.equals("none") && WebDriverRunner.hasWebDriverStarted()) {

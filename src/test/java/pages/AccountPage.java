@@ -7,14 +7,14 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 
 public class AccountPage {
-    private SelenideElement leftPanel = $("#leftPanel"),
-            rightPanel = $("#rightPanel"),
-            customerForm = $("#customerForm"),
-            transferFunds = $("[href='transfer.htm']"),
-            amountPrint = $("#amount"),
-            chooseAccount = $("#toAccountId"),
-            clickTransfer = $("[value='Transfer']"),
-            checkTransfer = $("#showResult");
+    private final SelenideElement leftPanel = $("#leftPanel");
+    private final SelenideElement rightPanel = $("#rightPanel");
+    private final SelenideElement customerForm = $("#customerForm");
+    private final SelenideElement transferFunds = $("[href='transfer.htm']");
+    private final SelenideElement amountPrint = $("#amount");
+    private final SelenideElement chooseAccount = $("#toAccountId");
+    private final SelenideElement clickTransfer = $("[value='Transfer']");
+    private final SelenideElement checkTransfer = $("#showResult");
 
 
     @Step("Проверить ,что успешно вошли  в аккаунт")
@@ -24,8 +24,8 @@ public class AccountPage {
     }
 
     @Step("Проверить ,что  аккаунт успешно создан ")
-    public AccountPage checkСreateAccount(String UsernName) {
-        rightPanel.shouldHave(text("Welcome " + UsernName));
+    public AccountPage checkCreateAccount(String UserName) {
+        rightPanel.shouldHave(text("Welcome " + UserName));
         return this;
     }
 
@@ -72,8 +72,8 @@ public class AccountPage {
     }
 
     @Step("Выбрать счет")
-    public AccountPage chooseAccount(String account) {
-        chooseAccount.selectOption(1);
+    public AccountPage chooseAccount(Integer account) {
+        chooseAccount.selectOption(account);
         return this;
     }
 

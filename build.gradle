@@ -49,6 +49,10 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.36'
     testCompileOnly 'org.projectlombok:lombok:1.18.36'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.36'
+    implementation 'io.rest-assured:rest-assured:5.3.0'
+    implementation 'io.rest-assured:xml-path:5.3.0'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.15.2'
+    testImplementation 'org.assertj:assertj-core:3.24.2'
 
 
 }
