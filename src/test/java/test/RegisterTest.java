@@ -1,5 +1,8 @@
 package test;
 
+import config.UserConfig;
+import dto.User;
+import factory.UserFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -10,13 +13,14 @@ import pages.RegisterPage;
 import utils.RandomUtils;
 
 @Tag("test")
-public class RegisterTest extends TestBase{
+public class RegisterTest extends TestBase {
 
     LoggingPage loggingPage = new LoggingPage();
     AccountPage accountPage = new AccountPage();
     RegisterPage registerPage = new RegisterPage();
     RandomUtils randomUtils = new RandomUtils();
-    CustomerLookupPage customerLookupPage=new CustomerLookupPage();
+    UserFactory userFactory=new UserFactory();
+    CustomerLookupPage customerLookupPage = new CustomerLookupPage();
     String randomPassword = randomUtils.getPassword();
     String randomUsernName = randomUtils.getUsernName();
     String nameField = "Username";
@@ -27,35 +31,38 @@ public class RegisterTest extends TestBase{
     String staticState = "Scotland";
     String staticZipCode = "HM309 7HP";
     String staticSSN = "DA42S12345";
-    String staticUsername = "albusgryffindor";
-    String staticPassword = "ExpectoPatronum789";
+    //String staticUsername = UserConfig.getUserName();
+    //String staticPassword = UserConfig.getPassword();
+    String staticUsername = "11";
+    String staticPassword = "123";
 
     @Test
-    @Tag("UI")
-    @DisplayName("Регистрация аккаунта с рандомными данными, заполняем все поля ")
+    @Tag("WEB")
+    @DisplayName("Проверка регистрации аккаунта с рандомными данными, заполняем все поля")
     void randomRegisterAccountUITest() {
+        User user = userFactory.getUser();
         loggingPage.openPage();
         loggingPage.clickRegister();
-        registerPage.setValueFirstName(randomUtils.getFirstName());
-        registerPage.setValueLastName(randomUtils.getLastName());
-        registerPage.setValueAddress(randomUtils.getAddress());
-        registerPage.setValueCity(randomUtils.getCity());
-        registerPage.setValueState(randomUtils.getState());
-        registerPage.setValueZipCode(randomUtils.getZipCode());
-        registerPage.setValuePhone(randomUtils.getPhone());
-        registerPage.setValueSSN(randomUtils.getSSN());
-        registerPage.setValueUsernName(randomUsernName);
-        registerPage.setValuePassword(randomPassword);
-        registerPage.setValueConfirm(randomPassword);
+        registerPage.setValueFirstName(user.getFirstName());
+        registerPage.setValueLastName(user.getLastName());
+        registerPage.setValueAddress(user.getAddress().getStreet());
+        registerPage.setValueCity(user.getAddress().getCity());
+        registerPage.setValueState(user.getAddress().getState());
+        registerPage.setValueZipCode(user.getAddress().getZipCode());
+        registerPage.setValuePhone(user.getPhoneNumber());
+        registerPage.setValueSSN(user.getSsn());
+        registerPage.setValueUsernName(user.getUserName());
+        registerPage.setValuePassword(user.getPassword());
+        registerPage.setValueConfirm(user.getPassword());
         registerPage.clickRegister();
-        accountPage.checkСreateAccount(randomUsernName);
+        accountPage.checkСreateAccount(user.getUserName());
 
     }
 
 
     @Test
-    @Tag("UI")
-    @DisplayName("Регистрация аккаунта с рандомными данными, заполняем только обязательные поля")
+    @Tag("WEB")
+    @DisplayName("Проверка регистрации аккаунта с рандомными данными, заполняем только обязательные поля")
     void randomRegisterAccountMimUITest() {
         loggingPage.openPage();
         loggingPage.clickRegister();
@@ -75,8 +82,8 @@ public class RegisterTest extends TestBase{
     }
 
     @Test
-    @Tag("UI")
-    @DisplayName("Регистрация аккаунта с рандомными данными, поле Username не заполнено")
+    @Tag("WEB")
+    @DisplayName("Проверка регистрации аккаунта с рандомными данными, поле Username не заполнено")
     void registerAccountFieldNotUITest() {
         loggingPage.openPage();
         loggingPage.clickRegister();
@@ -94,8 +101,8 @@ public class RegisterTest extends TestBase{
     }
 
     @Test
-    @Tag("UI")
-    @DisplayName("Регистрация аккаунта с рандомными данными, пароли не совпадают")
+    @Tag("WEB")
+    @DisplayName("Проверка регистрации аккаунта с рандомными данными, пароли не совпадают")
     void registerAccountPasswordsNotMatchUITest() {
         loggingPage.openPage();
         loggingPage.clickRegister();
@@ -111,8 +118,9 @@ public class RegisterTest extends TestBase{
         registerPage.clickRegister();
         accountPage.checkPasswordsNotMatch();
     }
+
     @Test
-    @Tag("UI")
+    @Tag("WEB")
     @DisplayName("Проверка кнопки \"Забыли пароль?\"")
     void forgotLoginInfo() {
         loggingPage.openPage();
