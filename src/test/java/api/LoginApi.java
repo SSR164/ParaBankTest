@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.notNullValue;
 import static specs.ApiSpecs.*;
 
-public class LoggingApi {
+public class LoginApi {
     @Step("Авторизация через post для получения JSESSIONID")
     public Response getJSESSIONID(String username, String password) {
         Response response = given(RequestSpec)
@@ -31,7 +31,7 @@ public class LoggingApi {
     }
 
     @Step("Авторизация через get")
-    public Response getlogging(String username, String password) {
+    public Response getLogin(String username, String password) {
         Response response = given(RequestSpec)
                 .contentType(ContentType.JSON)
                 .filter(withCustomTemplates())

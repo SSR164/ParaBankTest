@@ -38,7 +38,7 @@ public class AccountApi {
     }
 
     @Step("Подать заявку на кредит")
-    public Response getRegistLoan(String customerId, String amount, String downPayment, String fromAccountId) {
+    public void getRegisterLoan(String customerId, String amount, String downPayment, String fromAccountId) {
         Response response = given(RequestSpec)
                 .queryParam("customerId", customerId)
                 .queryParam("amount", amount)
@@ -49,28 +49,27 @@ public class AccountApi {
                 .then()
                 .spec(userResponseSpecification200)
                 .extract().response();
-        return response;
     }
 
     @Step("Получить общую сумму денег у пользователя ")
     public Double getBalanceAll(Response response) {
         List<Double> balances = response.xmlPath().getList("accounts.account.balance", Double.class);
-        Double balanceAll = 0.0;
-        for (int i = 0; i < balances.size(); i++) {
-            balanceAll = balanceAll + balances.get(i);
+        double balanceAll = 0.0;
+        for (Double balance : balances) {
+            balanceAll = balanceAll + balance;
 
         }
         return balanceAll;
     }
 
     @Step("Получить ожидаемую сумму денег у пользователя после получения кредита ")
-    public Double getExpectedBalancel(Double balanceAll, Double amount, Double downPayment) {
-        Double expectedBalancel = balanceAll + amount - downPayment;
-        return expectedBalancel;
+    public Double getExpectedBalance(Double balanceAll, Double amount, Double downPayment) {
+        Double expectedBalance = balanceAll + amount - downPayment;
+        return expectedBalance;
     }
 
     @Step("Подать заявку на кредит")
-    public Response updateCustomer(String customerId, User user) {
+    public void updateCustomer(String customerId, User user) {
         Response response = given(RequestSpec)
                 .pathParam("customerId", customerId)
                 .queryParam("firstName", user.getFirstName())
@@ -88,7 +87,6 @@ public class AccountApi {
                 .then()
                 .spec(userResponseSpecification200)
                 .extract().response();
-        return response;
     }
 
     @Step("Получить количество счетов у пользователя")
@@ -98,7 +96,7 @@ public class AccountApi {
     }
 
     @Step("Подать заявку на кредит")
-    public Response creatAccounts(String customerId, int newAccountType, String fromAccountId) {
+    public void createAccounts(String customerId, int newAccountType, String fromAccountId) {
         Response response = given(RequestSpec)
                 .queryParam("customerId", customerId)
                 .queryParam("newAccountType", newAccountType)
@@ -108,6 +106,5 @@ public class AccountApi {
                 .then()
                 .spec(userResponseSpecification200)
                 .extract().response();
-        return response;
     }
 }
