@@ -1,48 +1,48 @@
 plugins {
-    id 'java' // Подключает поддержку Java
-    id 'io.qameta.allure' version '2.11.2' // Подключает Allure для отчетов о тестах
+    id 'java'
+    id 'io.qameta.allure' version '2.11.2'
 }
 
-group = 'com.vampir6307' // Уникальный идентификатор проекта
-version = '1.0-SNAPSHOT' // Версия проекта
+group = 'com.vampir6307'
+version = '1.0-SNAPSHOT'
 
 repositories {
-    mavenCentral() // Подключение Maven Central как основного репозитория
+    mavenCentral()
 }
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
-def allureVersion = "2.21.0" // Версия Allure для отчетности
+def allureVersion = "2.21.0"
 
 allure {
     report {
-        version.set(allureVersion) // Устанавливаем версию Allure-отчетов
+        version.set(allureVersion)
     }
     adapter {
-        aspectjWeaver.set(true) // Включаем AspectJ Weaving (отслеживание тестов)
+        aspectjWeaver.set(true)
         frameworks {
             junit5 {
-                adapterVersion.set(allureVersion) // Подключение адаптера для JUnit 5
+                adapterVersion.set(allureVersion)
             }
         }
     }
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')// JUnit BOM для управления версиями всех модулей JUnit 5
-    testImplementation 'org.junit.jupiter:junit-jupiter-api'// зависимость JUnit 5 для компиляции тестов
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'// зависимость JUnit 5 для для их выполнения тестов
-    testImplementation 'com.codeborne:selenide:6.15.0' // Selenide для тестирования UI
-    implementation 'io.github.bonigarcia:webdrivermanager:5.9.2' // WebDriverManager для автоматического управления драйверами
-    testImplementation 'io.qameta.allure:allure-java-commons:2.21.0'//подключает основные компоненты Allure для работы с отчетами
-    testImplementation 'io.qameta.allure:allure-junit5:2.21.0'//интеграцию Allure с JUnit 5
-    implementation 'net.datafaker:datafaker:2.0.2' // для создания фейковых данных
-    testImplementation 'io.rest-assured:rest-assured:5.3.0'// подключаем rest-assured для тестирования api
-    testImplementation 'org.hamcrest:hamcrest:2.2'//предоставляет удобные матчеры (matchers) для проверки значений в тестах
-    testImplementation  'org.slf4j:slf4j-simple:2.0.7'//это абстрактный слой для логирования в Java.
-    testImplementation "org.junit.jupiter:junit-jupiter:5.10.0"// это фреймворк для написания и запуска тестов в Java.
-    testImplementation  "io.rest-assured:json-schema-validator:5.3.1"//это библиотека для тестирования REST API.
-    testImplementation "io.qameta.allure:allure-selenide:$allureVersion"//это инструменты для тестирования и отчетности.
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testImplementation 'com.codeborne:selenide:6.15.0'
+    implementation 'io.github.bonigarcia:webdrivermanager:5.9.2'
+    testImplementation 'io.qameta.allure:allure-java-commons:2.21.0'
+    testImplementation 'io.qameta.allure:allure-junit5:2.21.0'
+    implementation 'net.datafaker:datafaker:2.0.2'
+    testImplementation 'io.rest-assured:rest-assured:5.3.0'
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+    testImplementation 'org.slf4j:slf4j-simple:2.0.7'
+    testImplementation "org.junit.jupiter:junit-jupiter:5.10.0"
+    testImplementation "io.rest-assured:json-schema-validator:5.3.1"
+    testImplementation "io.qameta.allure:allure-selenide:$allureVersion"
     implementation 'io.qameta.allure:allure-rest-assured:2.29.1'
     implementation 'org.aeonbits.owner:owner:1.0.12'
     compileOnly 'org.projectlombok:lombok:1.18.36'
@@ -53,20 +53,26 @@ dependencies {
     implementation 'io.rest-assured:xml-path:5.3.0'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.15.2'
     testImplementation 'org.assertj:assertj-core:3.24.2'
+    implementation 'com.codeborne:selenide:6.17.0'
+//    implementation 'org.seleniumhq.selenium:selenium-java:4.14.1'
+//    implementation 'io.qameta.allure:allure-selenide:2.24.0'
+//    implementation 'org.seleniumhq.selenium:selenium-java:4.1.0'
+    implementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+//    implementation 'org.seleniumhq.selenium:selenium-chrome-driver:4.0.0'
 
 
 }
 
 tasks.withType(Test) {
     systemProperties(System.getProperties())
-    // Указываем, что используем JUnit Platform для запуска тестов (JUnit 5)
+
     useJUnitPlatform()
-// Настройка логирования тестов
+
     testLogging {
         lifecycle {
-            // Определяем, какие события будут выводиться в лог на уровне "lifecycle"
+
             events "started", "skipped", "failed", "standard_error", "standard_out"
-            // Задаём формат вывода исключений (короткий, без лишней информации)
+
             exceptionFormat "short"
         }
     }
@@ -74,27 +80,27 @@ tasks.withType(Test) {
 
 task bank_test(type: Test) {
     useJUnitPlatform {
-        includeTags("test") // Запускаем тесты с тегом "test"
+        includeTags("test")
     }
 }
 
 task bank_technical_test(type: Test) {
     useJUnitPlatform {
-        includeTags("TECH") // Запускаем тесты с тегом "tech"
+        includeTags("TECH")
     }
 }
 task bank_web_test(type: Test) {
     useJUnitPlatform {
-        includeTags("WEB") // Запускаем тесты с тегом "tech"
+        includeTags("WEB")
     }
 }
 task bank_api_test(type: Test) {
     useJUnitPlatform {
-        includeTags("API") // Запускаем тесты с тегом "tech"
+        includeTags("API")
     }
 }
 task bank_web_api_test(type: Test) {
     useJUnitPlatform {
-        includeTags("WEB+API") // Запускаем тесты с тегом "tech"
+        includeTags("WEB+API")
     }
 }

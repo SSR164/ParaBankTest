@@ -1,4 +1,4 @@
-package test;
+package web;
 
 
 import dto.User;
@@ -14,14 +14,14 @@ import utils.RandomUtils;
 
 
 @Tag("test")
-public class RegisterTest extends TestBase {
+public class RegisterTest extends TestBaseWeb {
 
-   private final LoginPage loggingPage = new LoginPage();
-   private final AccountPage accountPage = new AccountPage();
-   private final RegisterPage registerPage = new RegisterPage();
-   private final RandomUtils randomUtils = new RandomUtils();
-   private final UserFactory userFactory = new UserFactory();
-   private final CustomerLookupPage customerLookupPage = new CustomerLookupPage();
+    private final LoginPage loggingPage = new LoginPage();
+    private final AccountPage accountPage = new AccountPage();
+    private final RegisterPage registerPage = new RegisterPage();
+    private final RandomUtils randomUtils = new RandomUtils();
+    private final UserFactory userFactory = new UserFactory();
+    private final CustomerLookupPage customerLookupPage = new CustomerLookupPage();
 
 
     @Test

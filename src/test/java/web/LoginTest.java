@@ -1,8 +1,6 @@
-package test;
+package web;
 
 import api.LoginApi;
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import dto.User;
 import factory.UserFactory;
 import io.restassured.response.Response;
@@ -12,13 +10,10 @@ import org.junit.jupiter.api.Test;
 import pages.AccountPage;
 import pages.LoginPage;
 import utils.RandomUtils;
-import utils.UserCheckUtils;
-
-
 
 
 @Tag("test")
-public class LoginTest extends TestBase {
+public class LoginTest extends TestBaseWeb {
     private final LoginPage loginPage = new LoginPage();
     private final AccountPage accountPage = new AccountPage();
     private final RandomUtils randomUtils = new RandomUtils();
@@ -84,18 +79,6 @@ public class LoginTest extends TestBase {
         loginPage.loginPageRegisteredPerson(sessionId);
         loginPage.openPage();
         accountPage.checkAccount(user.getFirstName() + " " + user.getLastName());
-    }
-
-    @Test
-    @Tag("API")
-    @DisplayName("Проверка авторизации через API")
-    void fixedAccountCustomerIDTest() throws JsonProcessingException {
-        User user = userFactory.getUserFixed();
-        Response response = loginApi.getLogin(user.getUserName(), user.getPassword());
-        String responseXml = response.getBody().asString();
-        UserCheckUtils.checkFields(responseXml, user);
-
-
     }
 
 

@@ -1,4 +1,4 @@
-package test;
+package test.api;
 
 import api.AccountApi;
 import api.LoginApi;
@@ -10,27 +10,22 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import pages.AccountPage;
-import pages.LoginPage;
 import utils.UserCheckUtils;
-
-
-import static io.qameta.allure.Allure.step;
 
 import java.util.List;
 
+import static io.qameta.allure.Allure.step;
+import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.fail;
 
-@Tag("test")
-public class AccountsTest extends TestBase {
+public class AccountsApiTest extends TestBaseApi {
     private final LoginApi loginApi = new LoginApi();
     private final AccountApi accountApi = new AccountApi();
-    private final LoginPage loginPage = new LoginPage();
-    private final AccountPage accountPage = new AccountPage();
     private final UserFactory userFactory = new UserFactory();
     private String customerId;
+
 
     @BeforeEach
     void getCustomerId() {
@@ -95,28 +90,27 @@ public class AccountsTest extends TestBase {
     }
 
     @Test
-    @Tag("WEB+API")
-    @DisplayName("Проверка процедуры перевода дс с одного счета пользователя на другой")
-    void transferMoneyTest() {
+    @Tag("API")
+    @DisplayName("1111")
+    void updateCustomerInformatiodddnTest() throws JsonProcessingException {
         User user = userFactory.getUserFixed();
-        Response response1 = accountApi.getCustomerAccounts(customerId);
-        String accountIds = response1.xmlPath().getString("accounts.account[0].id");
-        int numberAccounts = accountApi.getNumberAccounts(response1);
-        if (numberAccounts == 1) {
-            accountApi.createAccounts(customerId, 0, accountIds);
-        }
-        Response response2 = loginApi.getJSESSIONID(user.getUserName(), user.getPassword());
-        String sessionId = response2.getCookie("JSESSIONID");
-        loginPage.loginPageRegisteredPerson(sessionId);
-        loginPage.openPage();
-        accountPage.clickTransferFunds();
-        accountPage.printAmount("1");
-        accountPage.chooseAccount(1);
-        accountPage.clickTransfer();
-        accountPage.checkTransfer();
-
-
+        given()
+                .log().all()
+                .contentType("application/x-www-form-urlencoded")
+                .formParam("customer.firstName", user.getFirstName())
+                .formParam("customer.lastName", user.getLastName())
+                .formParam("customer.address.street", user.getAddress().getStreet())
+                .formParam("customer.address.city", user.getAddress().getCity())
+                .formParam("customer.address.state", user.getAddress().getState())
+                .formParam("customer.address.zipCode", user.getAddress().getZipCode())
+                .formParam("customer.phoneNumber", user.getPhoneNumber())
+                .formParam("customer.ssn", user.getSsn())
+                .formParam("customer.username", user.getUserName())
+                .formParam("customer.password", user.getPassword())
+                .formParam("repeatedPassword", user.getPassword())
+                .when()
+                .post("https://parabank.parasoft.com/parabank/register.htm")
+                .then()
+                .log().all();
     }
-
-
 }
