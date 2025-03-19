@@ -12,11 +12,11 @@ import pages.RegisterPage;
 
 
 @Tag("TECH")
-public class TechnicalTest extends TestBase {
-   private final LoginPage loggingPage = new LoginPage();
-   private final AccountPage accountPage = new AccountPage();
-   private final RegisterPage registerPage = new RegisterPage();
-   private final UserFactory userFactory = new UserFactory();
+public class TechnicalTest extends TestBaseWeb {
+    private final LoginPage loggingPage = new LoginPage();
+    private final AccountPage accountPage = new AccountPage();
+    private final RegisterPage registerPage = new RegisterPage();
+    private final UserFactory userFactory = new UserFactory();
 
     @Test
     // @Disabled("Тест для генерации данных.Parabank ежедневно чистит БД.")

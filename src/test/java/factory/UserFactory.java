@@ -1,6 +1,6 @@
 package factory;
 
-import config.UserConfig;
+
 import dto.User;
 import utils.RandomUtils;
 
@@ -26,8 +26,8 @@ public class UserFactory {
     }
 
     public User getUserFixed() {
-//        String fixedPassword = "12345";
-//        String fixedUserName = "albusgryffindor";
+        String fixedPassword = "12345";
+        String fixedUserName = "albusgryffindor";
         String fixedSSN = "DA42S12345";
         String fixedPhone = "44 7872345612";
         String fixedZipCode = "HM309 7HP";
@@ -35,8 +35,8 @@ public class UserFactory {
         String fixedCity = "Hogsmeade";
         String fixedAddress = "Room of Requirement 742";
         String fixedLastName = "Dumbledore";
-        String fixedUserName = UserConfig.getUserName();
-        String fixedPassword = UserConfig.getPassword();
+//        String fixedUserName = UserConfig.getUserName();
+//        String fixedPassword = UserConfig.getPassword();
         String fixedFirstName = "Albus";
         return User
                 .builder()
