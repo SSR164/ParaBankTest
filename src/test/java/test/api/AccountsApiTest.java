@@ -1,4 +1,4 @@
-package test;
+package test.api;
 
 import api.AccountApi;
 import api.LoginApi;

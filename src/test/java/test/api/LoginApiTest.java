@@ -1,4 +1,4 @@
-package test;
+package test.api;
 
 import api.LoginApi;
 import com.fasterxml.jackson.core.JsonProcessingException;
