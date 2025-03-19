@@ -18,6 +18,7 @@ public class UserManager {
         Configuration.baseUrl = "https://parabank.parasoft.com";
         Configuration.pageLoadStrategy = "eager";
         Configuration.holdBrowserOpen = false;
+        Configuration.remote = System.getProperty("remoteUrl");
     }
 
 
@@ -36,19 +37,19 @@ public class UserManager {
                 .log().all()
                 .extract().response();
         if (response.getStatusCode() != HttpStatus.SC_OK) {
-            login.openPage1();
-            login.clickRegister1();
-            login.setValueFirstName1(user.getFirstName());
-            login.setValueLastName1(user.getLastName());
-            login.setValueAddress1(user.getAddress().getStreet());
-            login.setValueCity1(user.getAddress().getCity());
-            login.setValueState1(user.getAddress().getState());
-            login.setValueZipCode1(user.getAddress().getZipCode());
-            login.setValuePhone1(user.getPhoneNumber());
-            login.setValueSSN1(user.getSsn());
-            login.setValueUserName1(user.getUserName());
-            login.setValuePassword1(user.getPassword());
-            login.setValueConfirm1(user.getPassword());
+            login.openPageRepeat();
+            login.clickRegisterRepeat();
+            login.setValueFirstNameRepeat(user.getFirstName());
+            login.setValueLastNameRepeat(user.getLastName());
+            login.setValueAddressRepeat(user.getAddress().getStreet());
+            login.setValueCityRepeat(user.getAddress().getCity());
+            login.setValueStateRepeat(user.getAddress().getState());
+            login.setValueZipCodeRepeat(user.getAddress().getZipCode());
+            login.setValuePhoneRepeat(user.getPhoneNumber());
+            login.setValueSSNRepeat(user.getSsn());
+            login.setValueUserNameRepeat(user.getUserName());
+            login.setValuePasswordRepeat(user.getPassword());
+            login.setValueConfirmRepeat(user.getPassword());
             login.clickRegister();
         }
 

@@ -43,7 +43,8 @@ public class TestBaseWeb {
         );
 
         if (config.getIsRemote()) {
-            Configuration.remote = config.getRemoteUrl();
+            Configuration.remote = System.getProperty("remoteUrl");
+
         }
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
