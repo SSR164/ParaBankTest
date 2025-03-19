@@ -1,8 +1,6 @@
-package test.web;
+package web;
 
 import api.LoginApi;
-
-
 import dto.User;
 import factory.UserFactory;
 import io.restassured.response.Response;
@@ -12,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import pages.AccountPage;
 import pages.LoginPage;
 import utils.RandomUtils;
-
 
 
 @Tag("test")

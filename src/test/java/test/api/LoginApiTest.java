@@ -2,7 +2,6 @@ package test.api;
 
 import api.LoginApi;
 import com.fasterxml.jackson.core.JsonProcessingException;
-
 import dto.User;
 import factory.UserFactory;
 import io.restassured.response.Response;

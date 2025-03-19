@@ -1,4 +1,4 @@
-package test.web;
+package web;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
@@ -14,7 +14,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.remote.DesiredCapabilities;
-
+import utils.UserManager;
 
 import java.util.Map;
 
@@ -52,8 +52,10 @@ public class TestBaseWeb {
                 "enableVideo", true
         ));
         Configuration.browserCapabilities = capabilities;
-
+        UserManager userManager = new UserManager();
+        userManager.createUserIfNotExist();
     }
+
 
     @BeforeEach
     void addAllureListener() {

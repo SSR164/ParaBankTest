@@ -1,4 +1,4 @@
-package test.web;
+package web;
 
 
 import dto.User;

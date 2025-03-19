@@ -7,9 +7,8 @@ import io.restassured.response.Response;
 
 import java.util.List;
 
-import static specs.ApiSpecs.RequestSpec;
-
 import static io.restassured.RestAssured.given;
+import static specs.ApiSpecs.RequestSpec;
 import static specs.ApiSpecs.userResponseSpecification200;
 
 public class AccountApi {
