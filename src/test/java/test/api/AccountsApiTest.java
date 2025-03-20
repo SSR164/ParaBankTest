@@ -89,28 +89,5 @@ public class AccountsApiTest extends TestBaseApi {
 
     }
 
-    @Test
-    @Tag("API")
-    @DisplayName("1111")
-    void updateCustomerInformatiodddnTest() throws JsonProcessingException {
-        User user = userFactory.getUserFixed();
-        given()
-                .log().all()
-                .contentType("application/x-www-form-urlencoded")
-                .formParam("customer.firstName", user.getFirstName())
-                .formParam("customer.lastName", user.getLastName())
-                .formParam("customer.address.street", user.getAddress().getStreet())
-                .formParam("customer.address.city", user.getAddress().getCity())
-                .formParam("customer.address.state", user.getAddress().getState())
-                .formParam("customer.address.zipCode", user.getAddress().getZipCode())
-                .formParam("customer.phoneNumber", user.getPhoneNumber())
-                .formParam("customer.ssn", user.getSsn())
-                .formParam("customer.username", user.getUserName())
-                .formParam("customer.password", user.getPassword())
-                .formParam("repeatedPassword", user.getPassword())
-                .when()
-                .post("https://parabank.parasoft.com/parabank/register.htm")
-                .then()
-                .log().all();
-    }
+
 }

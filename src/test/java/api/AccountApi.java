@@ -15,9 +15,9 @@ public class AccountApi {
     @Step("Получить список счетов пользователя")
     public Response getCustomerAccounts(String customerId) {
         Response response = given(RequestSpec)
-                .pathParam("customerId", customerId)  // Передаём customerId в путь
+                .pathParam("customerId", customerId)
                 .when()
-                .get("/parabank/services/bank/customers/{customerId}/accounts") // <-- передаем параметры в URL
+                .get("/parabank/services/bank/customers/{customerId}/accounts")
                 .then()
                 .spec(userResponseSpecification200)
                 .extract().response();
@@ -29,7 +29,7 @@ public class AccountApi {
         Response response = given(RequestSpec)
                 .pathParam("accountsId", accountsId)
                 .when()
-                .get("/parabank/services/bank/accounts/{accountsId}") // <-- передаем параметры в URL
+                .get("/parabank/services/bank/accounts/{accountsId}")
                 .then()
                 .spec(userResponseSpecification200)
                 .extract().response();
@@ -82,7 +82,7 @@ public class AccountApi {
                 .queryParam("username", user.getUserName())
                 .queryParam("password", user.getPassword())
                 .when()
-                .post("/parabank/services/bank/customers/update/{customerId}") // <-- передаем параметры в URL
+                .post("/parabank/services/bank/customers/update/{customerId}")
                 .then()
                 .spec(userResponseSpecification200)
                 .extract().response();
@@ -90,7 +90,7 @@ public class AccountApi {
 
     @Step("Получить количество счетов у пользователя")
     public int getNumberAccounts(Response response) {
-        List<Object> accounts = response.xmlPath().getList("accounts.account"); // Убираем Integer.class
+        List<Object> accounts = response.xmlPath().getList("accounts.account");
         return accounts.size();
     }
 
@@ -101,7 +101,7 @@ public class AccountApi {
                 .queryParam("newAccountType", newAccountType)
                 .queryParam("fromAccountId", fromAccountId)
                 .when()
-                .post("/parabank/services/bank/createAccount") // <-- передаем параметры в URL
+                .post("/parabank/services/bank/createAccount")
                 .then()
                 .spec(userResponseSpecification200)
                 .extract().response();
